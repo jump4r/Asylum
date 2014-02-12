@@ -1,4 +1,4 @@
 Asylum
 ======
 
-Asylum is a Unity-based psychological horror game.
+Asylum is a Unity-based psychological thriller game.
