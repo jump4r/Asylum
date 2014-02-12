@@ -15,6 +15,9 @@ public class TriggerMoveObject : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		GameObject.Find ("FirstCube").transform.position = pos1; // Find the GameObject
+		Debug.Log (col.name);
+		if (col.name == "Player") {
+			GameObject.Find ("FirstCube").transform.position = pos1; // Find the GameObject
+		}
 	}
 }
