@@ -30,6 +30,7 @@ public class TriggerGUIOnObject : MonoBehaviour {
 	void OnGUI() {
 		if (active_GUI) {
 			Debug.Log ("GUI is Active");
+			GUI.Box (new Rect(Screen.width * .3f, Screen.height * .9f, Screen.width *.4f, 40f), "GUI is active, display content");
 		}
 	}
 }
