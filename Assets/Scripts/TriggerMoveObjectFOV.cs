@@ -19,7 +19,7 @@ public class TriggerMoveObjectFOV : MonoBehaviour {
 	void OnTriggerEnter(Collider col) {
 		Debug.Log ("Triggered");
 		cam = Camera.main;
-		planes = GeometryUtility.CalculateFrustumPlanes (cam);
+		planes = GeometryUtility.CalculateFrustumPlanes (cam); // Calculate the planes of the camera, Determine if obj is in those planes.
 		if (col.name == "Player" && !(GeometryUtility.TestPlanesAABB(planes, GameObject.Find ("SecondCube").collider.bounds))) {
 			Debug.Log ("Success on FOV Move!");
 			Vector3 cur_pos = GameObject.Find ("SecondCube").transform.position; // Find the GameObject
