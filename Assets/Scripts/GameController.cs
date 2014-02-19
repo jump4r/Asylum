@@ -3,16 +3,29 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
+
+	private bool wasLocked = false;
+
+	/* init stuff */
+	void Awake ()
+	{
+		Screen.lockCursor = true;
 	}
-	
-	// Update is called once per frame
+
+	/* update */
 	void Update () {
+
+		/* unlock cursor &| exit */
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			Application.Quit();
+			Screen.lockCursor = false;
 		}
+	}
+
+	/* print FPS in upper left */
+	void OnGUI()
+	{
+		GUI.Label(new Rect(0, 0, 100, 100), ((int)(1.0f / Time.smoothDeltaTime)).ToString());     
 	}
 }
