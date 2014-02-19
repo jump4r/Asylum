@@ -49,7 +49,7 @@ public class Conversation : MonoBehaviour{
 
 		else if (active_speech) {
 			sub_switch += Time.deltaTime;
-			if (sub_switch > 6 && current_sub < subtitle.Length-1) { // Literally the most editable number in the game.
+			if (sub_switch > 6 && current_sub < subtitle.Length-2) { // Literally the most editable number in the game.
 				sub_switch = 0;
 				current_sub += 2;
 				if (current_sub >= subtitle.Length)

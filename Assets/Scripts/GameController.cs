@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour {
 	void Update () {
 
 		/* unlock cursor &| exit */
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown (KeyCode.J))
 		{
 			Application.Quit();
 			Screen.lockCursor = false;
