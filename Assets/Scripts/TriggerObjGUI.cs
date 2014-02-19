@@ -39,7 +39,7 @@ public class TriggerObjGUI : MonoBehaviour {
 			ObjectDescriptor child_script = GetComponentInChildren<ObjectDescriptor>(); // Get the 
 			string desc = child_script.desc.ToString();
 
-			Debug.Log (desc);
+			//Debug.Log (desc);
 			GUI.Box (new Rect(Screen.width * .3f, Screen.height * .9f, Screen.width *.4f, 40f), desc);
 		}
 	}
