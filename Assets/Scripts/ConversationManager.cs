@@ -2,23 +2,22 @@
 using System.Collections;
 
 public class ConversationManager : MonoBehaviour {
+	Inmate name1; // List of Inmates, for their respective states, importable by the 
+	Inmate name2;
 
 	// Use this for initialization
 	void Start () {
-	
+		name1 = GameObject.FindGameObjectWithTag("Person1").GetComponent<Inmate>();
+		name2 = GameObject.Find("Person2Model").GetComponent<Inmate>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
-
-	void OnTriggerEnter(Collider col) {
-		if (col.name == "First Person Controller") { // Find associated trigger, called to whichever AI this conv belongs to, and call the conversation.
-			Debug.Log ("Conversation Started");
-			Conversation conv = GameObject.FindGameObjectWithTag("Person1").GetComponent<Conversation>();
-			conv.Setup ("Person1"); // In actuallity, this will find the tag of the Triggerbox's AI.
-			conv.TriggerConversation();
+		if (name1.GetCurrentConv () != 0) {
+			Debug.Log ("I was right!");
+		}
+		else {
+			Debug.Log (name1.GetCurrentConv());
 		}
 	}
 }

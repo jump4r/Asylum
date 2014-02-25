@@ -25,7 +25,7 @@ public class Conversation : MonoBehaviour{
 		sub_switch = 0;
 		current_sub = 0;
 		print_two_lines = true;
-		Debug.Log (inm.GetCurrentConv ());
+		// Debug.Log (inm.GetCurrentConv ());
 		if (inm.GetCurrentConv () >= inm.conv_clips.Length) { // If out of bounds, set the clips to 0, as that will be the default.
 			conv_clip = inm.conv_clips [0];
 			conv_text = inm.conv_texts [0];
@@ -49,7 +49,7 @@ public class Conversation : MonoBehaviour{
 
 		else if (active_speech) {
 			sub_switch += Time.deltaTime;
-			if (sub_switch > 6 && current_sub < subtitle.Length-2) { // Literally the most editable number in the game.
+			if (sub_switch > 5.35 && current_sub < subtitle.Length-2) { // Literally the most editable number in the game.
 				sub_switch = 0;
 				current_sub += 2;
 				if (current_sub >= subtitle.Length)
@@ -59,7 +59,7 @@ public class Conversation : MonoBehaviour{
 	}
 
 	public void TriggerConversation() {	// If the player collides with the zone, for now, start the audio.
-		Debug.Log ("Conversation Triggered from ConvManager Script.");
+		// Debug.Log ("Conversation Triggered from ConvManager Script.");
 		active_speech = true;
 		if (!audio.isPlaying) {
 			audio.clip = conv_clip;
