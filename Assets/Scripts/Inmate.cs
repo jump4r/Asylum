@@ -5,6 +5,7 @@ public class Inmate : MonoBehaviour {
 
 	public AudioClip[] conv_clips;
 	public TextAsset[] conv_texts;
+	public TextAsset[] conv_preqs;
 	public string in_name;
 
 	[HideInInspector]
@@ -37,6 +38,7 @@ public class Inmate : MonoBehaviour {
 	public void FinishConv() {
 		current_conv += 1; // Increase the conversation counter.
 		current_state = 0; // Set state to idle;
+		Debug.Log ("Inmate " + name + "'s current conv is " + current_conv); 
 	}
 
 	public int GetCurrentConv() {

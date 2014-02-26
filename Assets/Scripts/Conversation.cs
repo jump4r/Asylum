@@ -6,15 +6,17 @@ public class Conversation : MonoBehaviour{
 	public AudioClip conv_clip; // The audio for the clip
 	public TextAsset conv_text; // The text for the clip
 
+	private bool valid; // is valid conversation, or use default speech.
 	private bool active_speech;
-
 	private float sub_switch;	// Used for subtitles.
 	private int current_sub;
 	private string[] subtitle;
 	private bool print_two_lines;
 	// Use this for initialization
+	private ConversationManager cm;
 
 	void Start () {
+		cm = GameObject.Find ("GameVariables").GetComponent<ConversationManager> ();
 		active_speech = false;
 		sub_switch = 0;
 		current_sub = 0;
@@ -25,15 +27,24 @@ public class Conversation : MonoBehaviour{
 		sub_switch = 0;
 		current_sub = 0;
 		print_two_lines = true;
-		// Debug.Log (inm.GetCurrentConv ());
-		if (inm.GetCurrentConv () >= inm.conv_clips.Length) { // If out of bounds, set the clips to 0, as that will be the default.
+		Debug.Log ("The tag is: " + tag + "\n" + inm.name + "'s Current Conv is " + inm.GetCurrentConv ());
+		Debug.Log ("The conv_preqs length is " + inm.conv_preqs.Length);
+
+		// Determine if the conversation is valid
+		valid = cm.ValidConversation (inm.conv_preqs [inm.GetCurrentConv ()]);
+
+		// If out of bounds, set the clips to 0, as that will be the default.
+		if (inm.GetCurrentConv () >= inm.conv_clips.Length) {
 			conv_clip = inm.conv_clips [0];
 			conv_text = inm.conv_texts [0];
 		} 
+
 		else {
 			conv_clip = inm.conv_clips [inm.GetCurrentConv ()];
 			conv_text = inm.conv_texts [inm.GetCurrentConv ()];
 		}
+
+		// Split raw txt into lines for parsing.
 		subtitle = conv_text.text.Split ("\n" [0]);
 		if (subtitle.Length <= 1) {
 			print_two_lines = false;
@@ -47,8 +58,8 @@ public class Conversation : MonoBehaviour{
 			EndConversation();
 		} 
 
-		else if (active_speech) {
-			sub_switch += Time.deltaTime;
+		else if (active_speech) {	
+			sub_switch += Time.deltaTime;	// Determine when to switch subtitles.
 			if (sub_switch > 5.35 && current_sub < subtitle.Length-2) { // Literally the most editable number in the game.
 				sub_switch = 0;
 				current_sub += 2;
