@@ -7,7 +7,7 @@ public class ObjActions : MonoBehaviour {
 	private bool hasChanged = false;
 	private Vector3 normalScale;
 	private MeshRenderer mesh;
-	private Rigidbody phys;
+	//private Rigidbody phys;
 	private bool visible = true;
 
 	/* initialize or save anything we need here */
@@ -15,7 +15,7 @@ public class ObjActions : MonoBehaviour {
 	{
 		normalScale = transform.localScale;
 		mesh = gameObject.GetComponent<MeshRenderer>();
-		phys = gameObject.GetComponent<Rigidbody>();
+		//phys = gameObject.GetComponent<Rigidbody>();
 	}
 
 	/* randomly change the scale of the object within reason */

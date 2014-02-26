@@ -17,7 +17,7 @@ public class ConversationManager : MonoBehaviour {
 			Debug.Log ("I was right!");
 		}
 		else {
-			Debug.Log (name1.GetCurrentConv());
+//			Debug.Log (name1.GetCurrentConv());
 		}
 	}
 }
