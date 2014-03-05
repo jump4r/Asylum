@@ -14,7 +14,7 @@ public class ConversationTrigger : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter(Collider col) {
-		if (col.name == "First Person Controller") { // Find associated trigger, called to whichever AI this conv belongs to, and call the conversation.
+		if (col.name == "First Person Controller" || col.name == "OVRPlayerController") { // Find associated trigger, called to whichever AI this conv belongs to, and call the conversation.
 			// Debug.Log ("Conversation Started");
 			string sub_name = name.Substring (0, Mathf.Min (name.Length, 7));	// Gets the name of the Trigger, which in term determines what Inmate it belongs to
 			// Debug.Log (sub_name);	// All inmates will have names Person1, Person2, etc, along with their regular names. Actually, I don't think this really matters.
