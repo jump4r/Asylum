@@ -18,7 +18,7 @@ public class TriggerObjGUI : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col) {
 		if (col.name == "First Person Controller") {
-			Debug.Log("Player Collision Detected");
+			//Debug.Log("Player Collision Detected");
 			active_GUI = true;
 		}
 	}
