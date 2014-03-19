@@ -1,20 +1,28 @@
 fileFormatVersion: 2
-guid: ee4bb74c3eaa478439d99f45847a8759
+guid: fd3bc00a0387d5644b1745d224921e11
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
-    100002: polySurface1
-    100004: scaletesting:polySurface1
+    100002: door_opening1:pCube1
+    100004: door_opening1:pCube2
+    100006: door_opening1:pCube3
+    100008: door_opening1:polySurface1
+    100010: door_opening1:transform1
+    100012: door_opening1:transform2
+    100014: door_opening1:transform3
     400000: //RootNode
-    400002: polySurface1
-    400004: scaletesting:polySurface1
-    2300000: polySurface1
-    2300002: scaletesting:polySurface1
-    3300000: polySurface1
-    3300002: scaletesting:polySurface1
-    4300000: scaletesting:polySurface1
-    4300002: polySurface1
+    400002: door_opening1:pCube1
+    400004: door_opening1:pCube2
+    400006: door_opening1:pCube3
+    400008: door_opening1:polySurface1
+    400010: door_opening1:transform1
+    400012: door_opening1:transform2
+    400014: door_opening1:transform3
+    2300000: door_opening1:polySurface1
+    3300000: door_opening1:polySurface1
+    4300000: door_opening1:polySurface1
+    7400000: Take 001
     9500000: //RootNode
   materials:
     importMaterials: 1
