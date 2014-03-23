@@ -7,10 +7,10 @@ public class Inmate : MonoBehaviour {
 	public TextAsset[] conv_texts;
 	public TextAsset[] conv_preqs;
 	public string in_name;
+	public Vector3[] conv_locs;
 
 	[HideInInspector]
 	public string[] state;
-	public Vector3[] conv_locs;
 
 	private int current_conv;
 	private int current_state;

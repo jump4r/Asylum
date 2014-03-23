@@ -14,6 +14,7 @@ public class ConversationManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (names[0].GetCurrentConv () != 0) {
+
 		}
 	}
 
@@ -23,8 +24,6 @@ public class ConversationManager : MonoBehaviour {
 	}
 
 	public bool ValidConversation(TextAsset ta) {
-
-
 		string[] preq = ParsePreq (ta);
 		string[] person = new string[preq.Length];	// Inmate name
 		int[] nums = new int[preq.Length];			// Number conversation required
