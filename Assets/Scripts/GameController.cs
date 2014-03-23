@@ -4,11 +4,30 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 
 
+	public bool ovr_present = false;
 	private bool wasLocked = false;
+
 
 	/* init stuff */
 	void Awake ()
 	{
+		GameObject mainCamera = GameObject.Find ("Main Camera");
+		GameObject riftCamera = GameObject.FindGameObjectWithTag("OVRCamera");
+		GameObject player = GameObject.FindGameObjectWithTag ("Player");
+
+		if(OVRDevice.SensorCount > 0) {
+			mainCamera.SetActive(false);
+			player.GetComponent<MouseLook>().enabled = false;
+
+			riftCamera.SetActive(true);
+			ovr_present = true;
+			Debug.Log ("Rift found!");
+		} else {
+			mainCamera.SetActive(true);
+			riftCamera.SetActive(false);
+			Debug.Log ("Rift not found!");
+		}
+
 		Screen.lockCursor = true;
 	}
 

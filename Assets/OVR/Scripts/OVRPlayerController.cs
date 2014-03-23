@@ -301,19 +301,19 @@ public class OVRPlayerController : OVRComponent
 						
 			if(leftAxisY > 0.0f)
 	    		MoveThrottle += leftAxisY *
-				DirXform.TransformDirection(Vector3.forward * moveInfluence);
+				DirXform.TransformDirection(Camera.main.transform.forward * moveInfluence);
 				
 			if(leftAxisY < 0.0f)
 	    		MoveThrottle += Mathf.Abs(leftAxisY) *		
-				DirXform.TransformDirection(Vector3.back * moveInfluence) * BackAndSideDampen;
+				DirXform.TransformDirection(-Camera.main.transform.forward * moveInfluence) * BackAndSideDampen;
 				
 			if(leftAxisX < 0.0f)
 	    		MoveThrottle += Mathf.Abs(leftAxisX) *
-				DirXform.TransformDirection(Vector3.left * moveInfluence) * BackAndSideDampen;
+				DirXform.TransformDirection(-Camera.main.transform.right * moveInfluence) * BackAndSideDampen;
 				
 			if(leftAxisX > 0.0f)
 				MoveThrottle += leftAxisX *
-				DirXform.TransformDirection(Vector3.right * moveInfluence) * BackAndSideDampen;
+				DirXform.TransformDirection(Camera.main.transform.right * moveInfluence) * BackAndSideDampen;
 
 		}
 			
