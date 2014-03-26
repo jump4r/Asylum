@@ -42,7 +42,7 @@ public class ObjectAudioDescriptor : MonoBehaviour {
 
 	void OnGUI() {
 		if (active_GUI) {		
-			Debug.Log (desc);
+			//Debug.Log (desc);
 			GUI.Box (new Rect(Screen.width * .3f, Screen.height * .9f, Screen.width *.4f, 40f), desc.ToString ());
 		}
 	}
