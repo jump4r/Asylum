@@ -19,11 +19,15 @@ public class DoorRotate : MonoBehaviour {
 			Quaternion targetRotation = Quaternion.Euler(0, DoorOpenAngle, 0);
 			transform.localRotation = Quaternion.Slerp (transform.localRotation, targetRotation, Time.deltaTime * smooth);
 		}
-
+	
 		if (!open) {
 			Quaternion targetRotation0 = Quaternion.Euler(0, DoorCloseAngle, 0);
 			transform.localRotation = Quaternion.Slerp (transform.localRotation, targetRotation0, Time.deltaTime * smooth);
 		}*/ 
+
+		if (!animation.isPlaying) {
+			audio.Stop();
+		}
 	}
 
 	void OnTriggerEnter(Collider col) {
@@ -31,9 +35,10 @@ public class DoorRotate : MonoBehaviour {
 
 		// animation ["door_open"].wrapMode = WrapMode.Once;
 		if (!open) {
-			animation ["door_open"].speed = 1;
+			animation ["door_open"].speed = .5f + Random.value;
 			open = true;
 			animation.Play ("door_open");
+			audio.Play ();
 		}
 	}
 
