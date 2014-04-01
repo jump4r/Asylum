@@ -31,10 +31,6 @@ public class ObjectAudioDescriptor : MonoBehaviour {
 		}
 	}
 	
-	void OnTriggerExit(Collider col) {
-		Debug.Log (col.name);
-	}
-	
 	void Finish() {
 		active_playing = false;
 		active_GUI = false;

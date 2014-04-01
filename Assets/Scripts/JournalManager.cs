@@ -12,10 +12,11 @@ public class JournalManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (journals[0].GetCurrentJournal () != 0) {
-			
-		}
+	void Update ()
+	{
+	//	if (journals[0].GetCurrentJournal () != 0) {
+	//		
+	//	}
 	}
 	
 	string[] ParsePreq(TextAsset ta) {	// This like wasn't even needed now that I took all the shit out of it but i'm keeping it anyway fight me about it.

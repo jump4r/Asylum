@@ -4,17 +4,23 @@ using System.Collections;
 public class ObjActions : MonoBehaviour {
 
 	public bool isObserved = true;
+	public bool isNearby = false;
+	private bool cutsceneOverride = false;
 	private bool hasChanged = false;
 	private Vector3 normalScale;
+	private Vector3 normalPosition;
 	private MeshRenderer mesh;
 	//private Rigidbody phys;
 	private bool visible = true;
+	private CutsceneScripts cutsceneScripts;
 
 	/* initialize or save anything we need here */
 	void Awake()
 	{
 		normalScale = transform.localScale;
+		normalPosition = transform.localPosition;
 		mesh = gameObject.GetComponent<MeshRenderer>();
+		cutsceneScripts = GameObject.Find ("GameVariables").GetComponent<CutsceneScripts>();
 		//phys = gameObject.GetComponent<Rigidbody>();
 	}
 
@@ -22,7 +28,10 @@ public class ObjActions : MonoBehaviour {
 	void changeScale()
 	{
 		if(normalScale != transform.localScale)
+		{
 			transform.localScale = normalScale;
+			transform.localPosition = normalPosition;
+		}
 
 		transform.localScale += (new Vector3(Random.Range (.2f, 2f), Random.Range (.2f, 2f), Random.Range (.2f, 2f)));
 	}
@@ -30,6 +39,9 @@ public class ObjActions : MonoBehaviour {
 	/* toggles object visibility */
 	void changeVisibility()
 	{
+		if(cutsceneOverride)
+			return;
+
 		visible = !visible;
 		mesh.enabled = visible;
 		rigidbody.detectCollisions = visible;
@@ -48,12 +60,32 @@ public class ObjActions : MonoBehaviour {
 	{
 
 	}
+
+	
+	void OnTriggerEnter(Collider other)
+	{
+		if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			isNearby = true;
+//			Debug.Log("Added " + other.name);
+		}
+	}
+	
+	void OnTriggerExit(Collider other)
+	{
+		if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
+		{
+			isNearby = false;
+//			Debug.Log("removed " + other.name);
+		}
+	}
 	
 	void Update ()
 	{
+		cutsceneOverride = isNearby && cutsceneScripts.cs_active;
 
 		/* if the player is watching the object*/
-		if(isObserved)
+		if(isObserved && !cutsceneOverride)
 		{
 			//print (transform.name + " is being observed");
 			hasChanged = false;
@@ -61,7 +93,7 @@ public class ObjActions : MonoBehaviour {
 		}
 
 		/* otherwise do silly stuff when nobody is looking */
-		if(!hasChanged)
+		if(!hasChanged || cutsceneOverride)
 		{
 			/* give it a chance to become visible */
 			if(!visible & (Random.Range (0,2) == 1))

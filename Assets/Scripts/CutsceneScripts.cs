@@ -5,28 +5,34 @@ public class CutsceneScripts : MonoBehaviour {
 
 	GameController GC;
 	GameObject player;
-	bool cs_active = false;
+	Chaos playerChaos;
+	public bool cs_active = false;
 	bool testing = true;
+	float testTimer = 4f;
+	float resetTimer = 4f;
 	
 	void Awake ()
 	{
 		//GC = GameObject.Find("GameVariables").GetComponent<GameController>();
 		player = GameObject.Find ("First Person Controller");
+		playerChaos = player.GetComponent<Chaos>();
 	}
 
-	void startCutscene(int cutscene_id)
+	public void StartCutscene(int cutscene_id)
 	{
 		/* load some specific dialog with cutscene_id, or trigger w/e */
 
 		/* stop player movement */
 		cs_active = true;
+		playerChaos.chaosActive = true;
 		player.GetComponent<CharacterMotor>().canControl = false;
 	}
 
 	/* exit cutscene mode */
-	void endCutscene()
+	public void EndCutscene()
 	{
 		cs_active = false;
+		playerChaos.chaosActive = false;
 		player.GetComponent<CharacterMotor>().canControl = true;
 	}
 
@@ -42,6 +48,14 @@ public class CutsceneScripts : MonoBehaviour {
 		if(testing)
 		{
 
+			/* cutscene lasts arbitrary 3 seconds */
+			if(testTimer > 0f)
+				testTimer -= Time.deltaTime;
+			else
+			{
+				EndCutscene();
+				testTimer = resetTimer;
+			}
 		}
 
 	}
