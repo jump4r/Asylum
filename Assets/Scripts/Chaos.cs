@@ -37,14 +37,14 @@ public class Chaos : MonoBehaviour {
 		}
 
 		/* randomly set light color */
-		if(lightDuration > 0)
-			lightDuration -= Time.deltaTime;
-		else
-		{
-			lightDuration = lightReset;
+		//if(lightDuration > 0)
+		//	lightDuration -= Time.deltaTime;
+		//else
+		//{
+		//	lightDuration = lightReset;
 			playerLight.color = new Color(Random.Range(0,5), Random.Range(0,5), Random.Range(0,5));
 			lastFrameChaos = chaosActive;
-		}
+		//}
 	}
 
 	void Change () {
