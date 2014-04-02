@@ -93,10 +93,12 @@ public class JournalRead : MonoBehaviour{
 	void OnGUI() {
 		if (active_speech) {
 			//current_sub = conv_text.ToString();
+			// GUI.skin.label.fontSize = (int)(Screen.height * .1f);
+			// GUIText.fontSize = (int)(Screen.height * .1f);
 			if (print_two_lines)
-				GUI.Box (new Rect(Screen.width * .3f, Screen.height * .9f, Screen.width *.4f, 40f), subtitle[current_sub] + "\n" + subtitle[current_sub+1]);
+				GUI.Box (new Rect(Screen.width * .3f, Screen.height * .65f, Screen.width *.4f, Screen.height * .05f), subtitle[current_sub] + "\n" + subtitle[current_sub+1]);
 			else 
-				GUI.Box (new Rect(Screen.width * .3f, Screen.height * .9f, Screen.width *.4f, 40f), subtitle[current_sub]);
+				GUI.Box (new Rect(Screen.width * .3f, Screen.height * .65f, Screen.width *.4f, Screen.height * .05f), subtitle[current_sub]);
 		}
 	}
 }
