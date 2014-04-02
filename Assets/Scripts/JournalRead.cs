@@ -90,7 +90,7 @@ public class JournalRead : MonoBehaviour{
 		}
 	}
 	
-	void OnGUI() {
+	/* void OnGUI() {
 		if (active_speech) {
 			//current_sub = conv_text.ToString();
 			// GUI.skin.label.fontSize = (int)(Screen.height * .1f);
@@ -100,5 +100,5 @@ public class JournalRead : MonoBehaviour{
 			else 
 				GUI.Box (new Rect(Screen.width * .3f, Screen.height * .65f, Screen.width *.4f, Screen.height * .05f), subtitle[current_sub]);
 		}
-	}
+	} */
 }
