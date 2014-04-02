@@ -19,6 +19,15 @@ public class JournalManager : MonoBehaviour {
 	//		
 		}
 	}
+
+	public bool isJournalPlaying() {
+		foreach (Journal j in journals) {
+			if (j.audio.isPlaying) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	string[] ParsePreq(TextAsset ta) {	// This like wasn't even needed now that I took all the shit out of it but i'm keeping it anyway fight me about it.
 		string[] preq = ta.text.Split ("\n"[0]);

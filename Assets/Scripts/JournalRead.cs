@@ -34,7 +34,7 @@ public class JournalRead : MonoBehaviour{
 		
 		// Determine if the conversation is valid
 		valid = jm.ValidConversation (jour.journal_preqs [jour.GetCurrentJournal ()]);
-		if (valid) {
+		if (valid && !jm.isJournalPlaying()) {
 			// If out of bounds, set the clips to 0, as that will be the default.
 			if (jour.GetCurrentJournal () >= jour.journal_clips.Length) {
 				journal_clip = jour.journal_clips [0];
