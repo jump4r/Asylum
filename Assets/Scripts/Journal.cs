@@ -20,12 +20,14 @@ public class Journal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
 	}
 
 	public void FinishRead() {
+		transform.localPosition = journal_locs [current_journal];
 		current_journal += 1; // Increase the conversation counter.
-		Debug.Log ("Inmate " + name + "'s current conv is " + current_journal);
+		Debug.Log ("Journal " + name + "'s current conv is " + current_journal);
+
 	}
 
 	public int GetCurrentJournal() {
