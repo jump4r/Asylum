@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour {
 
 		if(OVRDevice.SensorCount > 0) {
 			mainCamera.SetActive(false);
-			player.GetComponent<MouseLook>().enabled = false;
+			//player.GetComponent<MouseLook>().enabled = false;
 
 			riftCamera.SetActive(true);
 			ovr_present = true;
