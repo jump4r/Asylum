@@ -5,7 +5,7 @@ public class JournalRead : MonoBehaviour{
 	
 	public AudioClip journal_clip; // The audio for the clip
 	public TextAsset journal_text; // The text for the clip
-	
+	public GameObject textPrefab; // Prefab of TextMesh.
 	[HideInInspector]
 	public bool valid; // is valid conversation, or use default speech. Needs to be public so I can access in ConvTrigger.
 	
@@ -72,6 +72,8 @@ public class JournalRead : MonoBehaviour{
 				if (current_sub >= subtitle.Length)
 					print_two_lines = false;
 			}
+
+
 		}
 	}
 	
@@ -82,6 +84,22 @@ public class JournalRead : MonoBehaviour{
 			audio.clip = journal_clip;
 			audio.Play();
 		}
+
+		// Instatiiate 3D Text the the screen. Useful in Oculus.
+		Debug.Log ("Trigger 3D Text");
+		GameObject mc = GameObject.FindGameObjectWithTag ("MainCamera");
+		GameObject screen_text = (GameObject)Instantiate(textPrefab, new Vector3(mc.transform.position.x, mc.transform.position.y, mc.transform.position.z), Quaternion.identity);
+
+		// screen_text.transform.rotation = Quaternion.Euler(mc.transform.rotation.x, mc.transform.rotation.y, mc.transform.rotation.z);
+		screen_text.transform.parent = GameObject.FindGameObjectWithTag ("MainCamera").transform;
+		// GameObject.FindGameObjectWithTag ("MainCamera").transform.position = GameObject.FindGameObjectWithTag ("MainCamera").transform.parent.position;
+		//screen_text.transform.localPosition = GameObject.FindGameObjectWithTag ("MainCamera").transform.localPosition;
+		screen_text.transform.localRotation = Quaternion.Euler(mc.transform.localRotation.x, mc.transform.localRotation.y, mc.transform.localRotation.z);
+		// screen_text.transform.localPposition = new Vector3 (screen_text.transform.Lposition.x, screen_text.transform.position.y, screen_text.transform.position.z - 30);
+		//screen_text.transform.Rotate (0, 180, 0, Space.World);
+		screen_text.GetComponent<TextMesh>().text = "Test Test";
+		screen_text.GetComponent<TextMesh>().fontSize = 50;
+		screen_text.GetComponent<TextMesh>().offsetZ = 18;
 	}
 	
 	void EndConversation() {
