@@ -6,6 +6,8 @@ public class GameController : MonoBehaviour {
 
 	public bool ovr_present = false;
 	private bool wasLocked = false;
+	private bool paused;
+	private MenuScript menu;
 
 
 	/* init stuff */
@@ -14,6 +16,7 @@ public class GameController : MonoBehaviour {
 		GameObject mainCamera = GameObject.Find ("Main Camera");
 		GameObject riftCamera = GameObject.FindGameObjectWithTag("OVRCamera");
 		GameObject player = GameObject.FindGameObjectWithTag ("Player");
+		menu = GetComponent<MenuScript> ();
 
 		if(OVRDevice.SensorCount > 0) {
 			mainCamera.SetActive(false);
@@ -37,9 +40,18 @@ public class GameController : MonoBehaviour {
 		/* unlock cursor &| exit */
 		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown (KeyCode.J))
 		{
+
 			Application.Quit();
 			Screen.lockCursor = false;
+			menu.ActivateMenu();
 		}
+
+		// changed selected menu item;
+		if (Input.GetKeyDown (KeyCode.DownArrow))
+			menu.ChangeSelectedDown ();
+
+		if (Input.GetKeyDown (KeyCode.UpArrow))
+			menu.ChangeSelectedUp ();
 	}
 
 	/* print FPS in upper left */

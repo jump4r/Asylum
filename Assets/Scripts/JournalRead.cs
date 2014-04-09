@@ -10,10 +10,10 @@ public class JournalRead : MonoBehaviour{
 	public bool valid; // is valid conversation, or use default speech. Needs to be public so I can access in ConvTrigger.
 	
 	private bool active_speech;
+	private GameObject screen_text; // Subtitles that appears on the screen
 	private float sub_switch;	// Used for subtitles.
-	private int current_sub;
-	private string[] subtitle;
-	private bool print_two_lines;
+	private int current_sub;	// The current index of the subtitle
+	private string[] subtitle;	// Total Array of subtitle strings in the journal
 	// Use this for initialization
 	private JournalManager jm;
 	
@@ -28,7 +28,6 @@ public class JournalRead : MonoBehaviour{
 		Journal jour = GetComponent<Journal> ();
 		sub_switch = 0;
 		current_sub = 0;
-		print_two_lines = true;
 		//Debug.Log ("The tag is: " + tag + "\n" + inm.name + "'s Current Conv is " + inm.GetCurrentConv ());
 		//Debug.Log ("The conv_preqs length is " + inm.conv_preqs.Length);
 		
@@ -48,9 +47,6 @@ public class JournalRead : MonoBehaviour{
 			
 			// Split raw txt into lines for parsing.
 			subtitle = journal_text.text.Split ("\n" [0]);
-			if (subtitle.Length <= 1) {
-				print_two_lines = false;
-			}
 			
 			// Trigger the Conversation if Valid
 			TriggerConversation();
@@ -66,14 +62,11 @@ public class JournalRead : MonoBehaviour{
 		
 		else if (active_speech) {	
 			sub_switch += Time.deltaTime;	// Determine when to switch subtitles.
-			if (sub_switch > 5.35 && current_sub < subtitle.Length-2) { // Literally the most editable number in the game.
+			if (sub_switch > 2.65 && current_sub < subtitle.Length-2) { // Literally the most editable number in the game.
 				sub_switch = 0;
-				current_sub += 2;
-				if (current_sub >= subtitle.Length)
-					print_two_lines = false;
+				current_sub += 1;
 			}
-
-
+			screen_text.GetComponent<TextMesh>().text = subtitle[current_sub].ToString();
 		}
 	}
 	
@@ -88,7 +81,7 @@ public class JournalRead : MonoBehaviour{
 		// Instatiiate 3D Text the the screen. Useful in Oculus.
 		Debug.Log ("Trigger 3D Text");
 		GameObject mc = GameObject.FindGameObjectWithTag ("MainCamera");
-		GameObject screen_text = (GameObject)Instantiate(textPrefab, new Vector3(mc.transform.position.x, mc.transform.position.y, mc.transform.position.z), Quaternion.identity);
+		screen_text = (GameObject)Instantiate(textPrefab, new Vector3(mc.transform.position.x, mc.transform.position.y - 25, mc.transform.position.z), Quaternion.identity);
 
 		// screen_text.transform.rotation = Quaternion.Euler(mc.transform.rotation.x, mc.transform.rotation.y, mc.transform.rotation.z);
 		screen_text.transform.parent = GameObject.FindGameObjectWithTag ("MainCamera").transform;
@@ -97,14 +90,14 @@ public class JournalRead : MonoBehaviour{
 		screen_text.transform.localRotation = Quaternion.Euler(mc.transform.localRotation.x, mc.transform.localRotation.y, mc.transform.localRotation.z);
 		// screen_text.transform.localPposition = new Vector3 (screen_text.transform.Lposition.x, screen_text.transform.position.y, screen_text.transform.position.z - 30);
 		//screen_text.transform.Rotate (0, 180, 0, Space.World);
-		screen_text.GetComponent<TextMesh>().text = "Test Test";
 		screen_text.GetComponent<TextMesh>().fontSize = 50;
-		screen_text.GetComponent<TextMesh>().offsetZ = 18;
+		screen_text.GetComponent<TextMesh>().offsetZ = 70;
 	}
 	
 	void EndConversation() {
 		if (valid) {
 			GetComponent<Journal>().FinishRead ();
+			Destroy (screen_text);
 		}
 	}
 	
