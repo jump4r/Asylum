@@ -6,10 +6,11 @@ public class JournalManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		journals = new Journal[3];
+		journals = new Journal[4];
 		journals[0] = GameObject.FindGameObjectWithTag("Journal1").GetComponent<Journal>();
 		journals[1] = GameObject.FindGameObjectWithTag("Journal2").GetComponent<Journal>();
 		journals[2] = GameObject.FindGameObjectWithTag("Journal3").GetComponent<Journal>();
+		journals[3] = GameObject.FindGameObjectWithTag("Journal4").GetComponent<Journal>();
 	}
 	
 	// Update is called once per frame
