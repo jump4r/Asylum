@@ -6,7 +6,7 @@ public class CutsceneGeorge : MonoBehaviour {
 	public GameObject textPrefab; // Prefab of TextMesh.
 	public AudioClip noise;
 	public AudioClip flicker;
-	public AudioClip[] creepy;
+	public AudioClip[] creepyClips;
 	public string[] messages;
 
 	// Handles Text Flashing
@@ -14,11 +14,19 @@ public class CutsceneGeorge : MonoBehaviour {
 	private bool flash;	// Flash the text in Update?
 	private float timeAllot; // allotted time for flashing text
 
+	// Handles 3D Audio Playing
+	public AudioClip[] whisperClips;
+	private GameObject whisper;
+
+	private GameObject mc;
+	private int counter;
+
 	// Use this for initialization
 	void Start () {
 		timeAllot = 3f;
 		bool flash = false;
 		audio.volume = .1f;
+		counter = 0;
 	}
 	
 	// Update is called once per frame
@@ -65,7 +73,7 @@ public class CutsceneGeorge : MonoBehaviour {
 	// FlashText Flashes text on the screen, then afterwards calls the next part of this hallucination engine.
 	void FlashText() {
 		Debug.Log ("Flash the text!");
-		GameObject mc = GameObject.FindGameObjectWithTag ("MainCamera");
+		mc = GameObject.FindGameObjectWithTag ("MainCamera");
 		screenText = (GameObject)Instantiate(textPrefab, new Vector3(mc.transform.position.x, mc.transform.position.y, mc.transform.position.z), Quaternion.identity);
 		screenText.transform.parent = GameObject.FindGameObjectWithTag ("MainCamera").transform;
 		screenText.transform.localRotation = Quaternion.Euler(mc.transform.localRotation.x, mc.transform.localRotation.y, mc.transform.localRotation.z);
@@ -75,7 +83,8 @@ public class CutsceneGeorge : MonoBehaviour {
 		flash = true; // Set flashing flag to true
 
 		Invoke("RemoveLights", timeAllot); // Move on to the next part in (3) seconds.
-		Invoke("BeginAudio", timeAllot); // Plays Creepy 2D and 3D sounds.
+		Invoke("BeginAudio", timeAllot); // Plays Creepy 2D Sound
+		Invoke("Play3DAudio", timeAllot); // Plays 3D Whisper/Text
 	}
 
 	// Removes Lights from the parent making it darker.
@@ -88,14 +97,57 @@ public class CutsceneGeorge : MonoBehaviour {
 		}
 	}
 
+	void AddLights() {
+		Light [] lights = transform.parent.GetComponentsInChildren<Light> ();
+		Debug.Log ("Num lights = " + lights.Length);
+		
+		foreach (Light l in lights) {
+			l.enabled = true;
+		}
+	}
+
 	void BeginAudio() {
 		// Play 2D Sound for BG Noise
 		audio.volume = 1f;
 		audio.clip = noise;
 		audio.Play ();
 
-		// Play 3D Sound for 
-
-
 		}
+
+	void Play3DAudio() {
+		if (counter < whisperClips.Length) {
+			// Instantiate Whsiper GO to a location nearby the player.
+			Debug.Log ("Create 3D Audio GO");
+			whisper = (GameObject)Instantiate (new GameObject ());
+			mc = GameObject.FindGameObjectWithTag ("MainCamera");
+			whisper.transform.position = new Vector3 (mc.transform.position.x + 2, mc.transform.position.y, mc.transform.position.z + 2);
+
+			// Add Audio Source for whisper
+			whisper.AddComponent<AudioSource> ();
+			whisper.audio.clip = whisperClips [counter];
+			whisper.audio.loop = true;
+			whisper.audio.Play ();
+
+			// Add box collider for whisper
+			whisper.AddComponent<BoxCollider> ();
+			whisper.GetComponent<BoxCollider> ().isTrigger = true;
+
+			// Add TriggerScript for whisper
+			whisper.AddComponent<CutsceneGeorge3DTrigger>();
+		}
+	}
+
+	public void ReposAudio() {
+		counter += 1;
+		Destroy (whisper);
+		if (counter < whisperClips.Length) {
+			Play3DAudio ();
+		}
+	}
+
+	void FinishCutscene() {
+		// Add Lights back to scene and Stop 2D sound.
+		AddLights ();
+		audio.Stop ();
+	}
 }
