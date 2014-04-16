@@ -61,6 +61,9 @@ public class CutsceneGeorge : MonoBehaviour {
 				timeAllot = 3f;
 				Destroy (screenText);
 				audio.Stop();
+				foreach (Light l in lights) {
+					l.enabled = false;
+				}
 			}
 		}
 	}
@@ -90,10 +93,18 @@ public class CutsceneGeorge : MonoBehaviour {
 	// Removes Lights from the parent making it darker.
 	void RemoveLights() {
 		Light [] lights = transform.parent.GetComponentsInChildren<Light> ();
+		MeshRenderer [] mr = transform.parent.GetComponentsInChildren<MeshRenderer>();
 		Debug.Log ("Num lights = " + lights.Length);
 
 		foreach (Light l in lights) {
 			l.enabled = false;
+		}
+
+		// Also Removes material from Lamp shader.
+		foreach (MeshRenderer m in mr) {
+			foreach (Material mat in m.materials) {
+				mat.shader = Shader.Find ("Diffuse");
+			}
 		}
 	}
 
