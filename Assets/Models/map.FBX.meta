@@ -1,20 +1,14 @@
 fileFormatVersion: 2
-guid: 01cf3dc98f7970f419b193faf734fd0e
+guid: ebebb0926c67ef04d98a0c5900d8278e
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pCube1
-    100004: room:pCube1
     400000: //RootNode
-    400002: pCube1
-    400004: room:pCube1
-    2300000: pCube1
-    2300002: room:pCube1
-    3300000: pCube1
-    3300002: room:pCube1
-    4300000: room:pCube1
-    4300002: pCube1
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: WIP001
+    6400000: //RootNode
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -36,7 +30,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
