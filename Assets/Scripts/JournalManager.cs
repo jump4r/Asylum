@@ -3,7 +3,6 @@ using System.Collections;
 
 public class JournalManager : MonoBehaviour {
 	Journal[] journals; // List of Inmates, for their respective states, importable by the
-	CutsceneGeorge cg;
 	
 	// Use this for initialization
 	void Start () {
@@ -22,6 +21,7 @@ public class JournalManager : MonoBehaviour {
 		}
 	}
 
+	// Determines whether ANY journal is playing.
 	public bool isJournalPlaying() {
 		foreach (Journal j in journals) {
 			if (j.audio.isPlaying) {
@@ -35,7 +35,8 @@ public class JournalManager : MonoBehaviour {
 		string[] preq = ta.text.Split ("\n"[0]);
 		return preq;
 	}
-	
+
+	// Determine whether the pre-req of a certain conversation has been met or not based on all of the other Journals.
 	public bool ValidConversation(TextAsset ta) {
 		string[] preq = ParsePreq (ta);
 		string[] person = new string[preq.Length];	// Inmate name

@@ -13,7 +13,7 @@ public class Chaos : MonoBehaviour {
 
 	void Awake ()
 	{
-		crazyObjs = GameObject.Find ("CrazyObjs");
+		crazyObjs = GameObject.FindGameObjectWithTag ("CrazyObjs");
 		allCrazies = crazyObjs.GetComponentsInChildren<Transform>();
 		playerLight = GameObject.Find ("PlayerLight").GetComponent<Light>();
 	}

@@ -16,6 +16,7 @@ public class CutsceneGeorge3DTrigger : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col) {
-		cg.ReposAudio ();
+		Debug.Log ("Change Direction via Wallhit");
+		cg.ReverseAudio ();
 	}
 }

@@ -9,6 +9,8 @@ public class CutsceneGeorge : MonoBehaviour {
 	public AudioClip flicker;
 	public AudioClip[] creepyClips;
 	public string[] messages;
+	public GameObject player;
+	public GameObject spawn;
 
 	// Handles Text Flashing
 	private GameObject screenText; // text that will flash on the screen
@@ -16,15 +18,17 @@ public class CutsceneGeorge : MonoBehaviour {
 	private float timeAllot; // allotted time for flashing text
 
 	// Handles 3D Audio Playing
-	public AudioClip[] whisperClips;
+	public AudioClip whisperClip;
 	private GameObject whisper;
 
+	private Vector3 initialPosition;
 	private bool is3DAudioPlaying;
 	private GameObject mc;
 	private int counter;
 	private float changeDirection;
 	private float speed;
 	private Vector3 vel;
+	private bool reverseAudioDirection;
 
 	// Use this for initialization
 	void Start () {
@@ -35,7 +39,9 @@ public class CutsceneGeorge : MonoBehaviour {
 
 		counter = 0; // Counter for the whisperClips.
 
+		// Handles Moving Audio
 		is3DAudioPlaying = false;
+		reverseAudioDirection = false;
 		speed = 4f;
 		vel = Random.insideUnitSphere * speed;
 	}
@@ -80,6 +86,7 @@ public class CutsceneGeorge : MonoBehaviour {
 
 		// Move Sound.
 		if (is3DAudioPlaying) {
+			// Check to see if we need to change the direction of the audio (every 1 second)
 			if (changeDirection > 0) {
 				changeDirection -= Time.deltaTime;
 			}
@@ -88,8 +95,35 @@ public class CutsceneGeorge : MonoBehaviour {
 				vel = Random.insideUnitSphere * speed;
 				vel.y = 0;
 			}
-			whisper.transform.Translate(vel * Time.deltaTime);
+
+			// Check to see if we need to REVERSE the direction of the audio
+			if (reverseAudioDirection) {
+				changeDirection = 1f;
+				reverseAudioDirection = false;
+				vel = vel * -1f;
+				vel.y = 0;
+			}
+
+			// Move the audio, determining if the player is really far away or not.
+			if (Vector3.Distance(player.transform.position, whisper.transform.position) < 10) {
+				whisper.transform.Translate(vel * Time.deltaTime);
+			}
+
+			else {
+				Debug.Log ("Moving to player");
+				whisper.transform.position = Vector3.MoveTowards(whisper.transform.position, player.transform.position, Time.deltaTime * speed);
+			}
+
+			if (!whisper.audio.isPlaying) {
+				FinishCutscene ();
+			}
 		}
+	}
+
+	// Begins the cutscene
+	public void Begin(AudioClip journalClip) {
+		whisperClip = journalClip;
+		FlashText ();
 	}
 
 	void OnTriggerEnter(Collider col) {
@@ -110,15 +144,15 @@ public class CutsceneGeorge : MonoBehaviour {
 		flash = true; // Set flashing flag to true
 
 		Invoke("RemoveLights", timeAllot); // Move on to the next part in (3) seconds.
-		Invoke("BeginAudio", timeAllot + 1f); // Plays Creepy 2D Sound
-		Invoke("Play3DAudio", timeAllot + 1f); // Plays 3D Whisper/Text
-		Invoke ("MovePlayer", timeAllot + .5f);
+		Invoke("BeginAudio", timeAllot); // Plays Creepy 2D Sound
+		Invoke("Play3DAudio", 0f); // Plays 3D Whisper/Text
+		Invoke ("MovePlayer", timeAllot);
 	}
 
 	// Moves Player to the designated location;
 	void MovePlayer() {
 		Debug.Log ("Move Player");
-		GameObject player = GameObject.Find ("First Person Controller");
+		initialPosition = player.transform.position;
 		player.transform.position = GameObject.Find ("Teleport George").transform.position;
 	}
 
@@ -158,33 +192,27 @@ public class CutsceneGeorge : MonoBehaviour {
 		}
 
 	void Play3DAudio() {
-		if (counter < whisperClips.Length) {
-			// Instantiate Whsiper GO to a location nearby the player.
-			Debug.Log ("Create 3D Audio GO");
-			whisper = (GameObject)Instantiate (new GameObject ());
-			mc = GameObject.FindGameObjectWithTag ("MainCamera");
-			whisper.transform.position = new Vector3 (mc.transform.position.x + 2, mc.transform.position.y, mc.transform.position.z + 2);
+		// Instantiate Whsiper GO to a location nearby the player.
+		Debug.Log ("Create 3D Audio GO");
+		whisper = (GameObject)Instantiate (new GameObject ());
+		mc = GameObject.FindGameObjectWithTag ("MainCamera");
+		whisper.transform.position = new Vector3 (mc.transform.position.x + 2, mc.transform.position.y, mc.transform.position.z + 2);
 
-			// Add Audio Source for whisper
-			whisper.AddComponent<AudioSource> ();
-			whisper.audio.clip = whisperClips [counter];
-			whisper.audio.loop = true;
-			whisper.audio.Play ();
+		// Add Audio Source for whisper
+		whisper.AddComponent<AudioSource> ();
+		whisper.audio.clip = whisperClip;
+		whisper.audio.loop = false;
+		whisper.audio.Play ();
 
-			// Add box collider for whisper
-			// whisper.AddComponent<BoxCollider> ();
-			// whisper.GetComponent<BoxCollider> ().isTrigger = true;
+		// Add box collider for whisper
+		whisper.AddComponent<BoxCollider> ();
+		whisper.GetComponent<BoxCollider> ().isTrigger = true;
 
-			// Add TriggerScript for whisper
-			// whisper.AddComponent<CutsceneGeorge3DTrigger> ();
+		// Add TriggerScript for whisper
+		whisper.AddComponent<CutsceneGeorge3DTrigger> ();
 
-			// 3D Audio is playing to true
-			is3DAudioPlaying = true;
-		} 
-
-		else {
-			FinishCutscene();
-		}
+		// 3D Audio is playing to true
+		is3DAudioPlaying = true;
 	}
 
 	public void ReposAudio() {
@@ -200,9 +228,17 @@ public class CutsceneGeorge : MonoBehaviour {
 		transform.Translate (vel * Time.deltaTime);
 	}
 
+	public void ReverseAudio() {
+		reverseAudioDirection = true;
+	}
+
 	void FinishCutscene() {
 		// Add Lights back to scene and Stop 2D sound.
+		Destroy (whisper);
 		AddLights ();
 		audio.Stop ();
+		flash = false;
+		is3DAudioPlaying = false;
+		player.transform.position = spawn.transform.position;
 	}
 }
