@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// All functions and elements involved in George's Cutscene.
 public class CutsceneGeorge : MonoBehaviour {
 
 	public GameObject textPrefab; // Prefab of TextMesh.
@@ -18,15 +19,25 @@ public class CutsceneGeorge : MonoBehaviour {
 	public AudioClip[] whisperClips;
 	private GameObject whisper;
 
+	private bool is3DAudioPlaying;
 	private GameObject mc;
 	private int counter;
+	private float changeDirection;
+	private float speed;
+	private Vector3 vel;
 
 	// Use this for initialization
 	void Start () {
-		timeAllot = 3f;
+		timeAllot = 3f; // Teleportation and Audio scripts will be called after (timeAllot) seconds.
+		changeDirection = 1f; // Direction of 3D audio will change every (cD) seconds
 		bool flash = false;
 		audio.volume = .1f;
-		counter = 0;
+
+		counter = 0; // Counter for the whisperClips.
+
+		is3DAudioPlaying = false;
+		speed = 4f;
+		vel = Random.insideUnitSphere * speed;
 	}
 	
 	// Update is called once per frame
@@ -34,29 +45,29 @@ public class CutsceneGeorge : MonoBehaviour {
 		if (flash) { // If The text on the screen should be flashing, flash and play the flicker audio.
 			float messageDet = Random.value;
 			Light [] lights = transform.parent.GetComponentsInChildren<Light> ();
+			// Channge the messages that appear on the screen when Triggered.
 			if (messageDet < .04) {
 				screenText.GetComponent<TextMesh>().text = messages[1];
-				Debug.Log ("Test1");
 				foreach (Light l in lights) {
 					l.enabled = false;
 				}
 			}
 			else {
 				screenText.GetComponent<TextMesh>().text = messages[0];
-				Debug.Log ("Test2");
 				foreach (Light l in lights) {
 					l.enabled = true;
 				}
 			}
-			Debug.Log (messageDet);
 			timeAllot -= Time.deltaTime;
 
+			// Play "flicker" sound.
 			if (!audio.isPlaying) {
 				audio.clip = flicker;
 				audio.Play ();
 			}
 
-			if (timeAllot < 0f) { // Determine when to destroy
+			// Determine when to destroy
+			if (timeAllot < 0f) { 
 				flash = false;
 				timeAllot = 3f;
 				Destroy (screenText);
@@ -65,6 +76,19 @@ public class CutsceneGeorge : MonoBehaviour {
 					l.enabled = false;
 				}
 			}
+		}
+
+		// Move Sound.
+		if (is3DAudioPlaying) {
+			if (changeDirection > 0) {
+				changeDirection -= Time.deltaTime;
+			}
+			else {
+				changeDirection = 1f;
+				vel = Random.insideUnitSphere * speed;
+				vel.y = 0;
+			}
+			whisper.transform.Translate(vel * Time.deltaTime);
 		}
 	}
 
@@ -86,8 +110,16 @@ public class CutsceneGeorge : MonoBehaviour {
 		flash = true; // Set flashing flag to true
 
 		Invoke("RemoveLights", timeAllot); // Move on to the next part in (3) seconds.
-		Invoke("BeginAudio", timeAllot); // Plays Creepy 2D Sound
-		Invoke("Play3DAudio", timeAllot); // Plays 3D Whisper/Text
+		Invoke("BeginAudio", timeAllot + 1f); // Plays Creepy 2D Sound
+		Invoke("Play3DAudio", timeAllot + 1f); // Plays 3D Whisper/Text
+		Invoke ("MovePlayer", timeAllot + .5f);
+	}
+
+	// Moves Player to the designated location;
+	void MovePlayer() {
+		Debug.Log ("Move Player");
+		GameObject player = GameObject.Find ("First Person Controller");
+		player.transform.position = GameObject.Find ("Teleport George").transform.position;
 	}
 
 	// Removes Lights from the parent making it darker.
@@ -140,20 +172,32 @@ public class CutsceneGeorge : MonoBehaviour {
 			whisper.audio.Play ();
 
 			// Add box collider for whisper
-			whisper.AddComponent<BoxCollider> ();
-			whisper.GetComponent<BoxCollider> ().isTrigger = true;
+			// whisper.AddComponent<BoxCollider> ();
+			// whisper.GetComponent<BoxCollider> ().isTrigger = true;
 
 			// Add TriggerScript for whisper
-			whisper.AddComponent<CutsceneGeorge3DTrigger>();
+			// whisper.AddComponent<CutsceneGeorge3DTrigger> ();
+
+			// 3D Audio is playing to true
+			is3DAudioPlaying = true;
+		} 
+
+		else {
+			FinishCutscene();
 		}
 	}
 
 	public void ReposAudio() {
-		counter += 1;
+		Debug.Log ("Repos Audio");
+		/*counter += 1;
 		Destroy (whisper);
 		if (counter < whisperClips.Length) {
 			Play3DAudio ();
-		}
+		}*/
+		float speed = 10f;
+		Vector3 vel = Random.insideUnitSphere * speed;
+		vel.y = 0;
+		transform.Translate (vel * Time.deltaTime);
 	}
 
 	void FinishCutscene() {

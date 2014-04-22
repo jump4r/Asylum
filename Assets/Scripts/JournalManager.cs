@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class JournalManager : MonoBehaviour {
-	Journal[] journals; // List of Inmates, for their respective states, importable by the 
+	Journal[] journals; // List of Inmates, for their respective states, importable by the
+	CutsceneGeorge cg;
 	
 	// Use this for initialization
 	void Start () {
