@@ -13,6 +13,7 @@ public class Chaos : MonoBehaviour {
 
 	void Awake ()
 	{
+		DontDestroyOnLoad (transform.gameObject);
 		crazyObjs = GameObject.FindGameObjectWithTag ("CrazyObjs");
 		allCrazies = crazyObjs.GetComponentsInChildren<Transform>();
 		//playerLight = GameObject.Find ("PlayerLight").GetComponent<Light>();

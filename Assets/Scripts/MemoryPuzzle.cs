@@ -13,11 +13,13 @@ public class MemoryPuzzle : MonoBehaviour
 	public int gridY = 7;
 	public int difficultyLevel = 5;
 	public bool puzzleStarted = false;
+	public bool startup = false;
 
 	private GameObject startTile, player;
 	private float spacing = 5f;
 	private int startX, startY, direction;
 	private bool pathFound;
+	private bool isRunning = false;
 	private GameObject [,] gridTiles;
 	private int[,] grid;
 	private float startTime;
@@ -28,24 +30,34 @@ public class MemoryPuzzle : MonoBehaviour
 	void Awake()
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
-		grid = new int [gridX,gridY];
-		gridTiles = new GameObject[gridX, gridY];
-	}
-
-	void Start()
-	{
-		FindPath ();
-		MakeGrid ();
-		MakeStartPlatform ();
 	}
 
 	void Update()
 	{
-		CheckForPuzzleStart ();
-		MoveStartPlatform ();
-		CheckPlayerHeight ();
+		if(startup)
+		{
+			StartPuzzle();
+		}
+		if (isRunning)
+		{
+			CheckForPuzzleStart ();
+			MoveStartPlatform ();
+			CheckPlayerHeight ();
+		}
 	}
 
+	void StartPuzzle()
+	{
+		Application.LoadLevel (1);
+		grid = new int [gridX,gridY];
+		gridTiles = new GameObject[gridX, gridY];
+		FindPath ();
+		MakeGrid ();
+		MakeStartPlatform ();
+		isRunning = true;
+		startup = false;
+	}
+	
 	void MoveStartPlatform ()
 	{
 		if (startTile.transform.position.y >= 0)

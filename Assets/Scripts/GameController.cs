@@ -13,12 +13,13 @@ public class GameController : MonoBehaviour {
 	/* init stuff */
 	void Awake ()
 	{
+		DontDestroyOnLoad(transform.gameObject);
 		GameObject mainCamera = GameObject.Find ("Main Camera");
 		GameObject riftCamera = GameObject.FindGameObjectWithTag("OVRCamera");
 		GameObject player = GameObject.FindGameObjectWithTag ("Player");
 		menu = GetComponent<MenuScript> ();
 
-		if(OVRDevice.SensorCount > 0) {
+		if(OVRDevice.IsSensorPresent()) {
 			mainCamera.SetActive(false);
 			//player.GetComponent<MouseLook>().enabled = false;
 
