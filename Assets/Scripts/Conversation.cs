@@ -18,7 +18,7 @@ public class Conversation : MonoBehaviour{
 	private ConversationManager cm;
 	
 	void Start () {
-		cm = GameObject.Find ("GameVariables").GetComponent<ConversationManager> ();
+		cm = GameObject.FindGameObjectWithTag("GameController").GetComponent<ConversationManager> ();
 		active_speech = false;
 		sub_switch = 0;
 		current_sub = 0;

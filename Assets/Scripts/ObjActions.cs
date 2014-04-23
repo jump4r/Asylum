@@ -20,7 +20,7 @@ public class ObjActions : MonoBehaviour {
 		normalScale = transform.localScale;
 		normalPosition = transform.localPosition;
 		mesh = gameObject.GetComponent<MeshRenderer>();
-		cutsceneScripts = GameObject.Find ("GameVariables").GetComponent<CutsceneScripts>();
+		cutsceneScripts = GameObject.FindGameObjectWithTag("GameController").GetComponent<CutsceneScripts>();
 		//phys = gameObject.GetComponent<Rigidbody>();
 	}
 

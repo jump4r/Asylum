@@ -10,7 +10,7 @@ public class CutsceneTrigger : MonoBehaviour {
 
 	void Awake()
 	{
-		cutsceneScripts = GameObject.Find ("GameVariables").GetComponent<CutsceneScripts>();
+		cutsceneScripts = GameObject.FindGameObjectWithTag("GameController").GetComponent<CutsceneScripts>();
 	}
 
 	// Update is called once per frame

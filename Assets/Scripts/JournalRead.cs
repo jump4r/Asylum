@@ -20,7 +20,7 @@ public class JournalRead : MonoBehaviour{
 	private JournalManager jm;
 	
 	void Start () {
-		jm = GameObject.Find ("GameVariables").GetComponent<JournalManager> ();
+		jm = GameObject.FindGameObjectWithTag("GameController").GetComponent<JournalManager> ();
 		active_speech = false;
 		sub_switch = 0;
 		current_sub = 0;
