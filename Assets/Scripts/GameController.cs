@@ -8,6 +8,9 @@ public class GameController : MonoBehaviour {
 	private bool wasLocked = false;
 	private bool paused;
 	private MenuScript menu;
+	public int gridX = 7;
+	public int gridY = 7;
+	public int difficultyLevel = 5;
 
 
 	/* init stuff */
