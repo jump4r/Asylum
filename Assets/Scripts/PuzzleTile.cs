@@ -11,26 +11,23 @@ public class PuzzleTile : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "Player")
 		{
-			if (transform.parent.tag == "GoodTile")
-			{
-				GameObject.FindGameObjectWithTag("GameController").GetComponent<MemoryPuzzle>().puzzleStarted = true;
-			}
 			if (transform.parent.tag == "BadTile")
 			{
-				StartCoroutine(ResetLevel());
+		//		StartCoroutine(ResetLevel());
+				//GameObject.FindGameObjectWithTag ("Player").GetComponent<CharacterMotor> ().enabled = false;
+				//GameObject.FindGameObjectWithTag ("GameController").GetComponent<MemoryPuzzle> ().isRunning = false;
+				Application.LoadLevel(1);
 			}
 			else if (transform.parent.tag == "GoalTile")
 			{
+				Application.LoadLevel(0);
 				//What to do when you win goes here.
 			}
 		}
 	}
 
-	IEnumerator ResetLevel()
-	{
+//	IEnumerator ResetLevel()
+//	{
 		//play fail sound
-		GameObject.FindGameObjectWithTag ("Player").GetComponent<CharacterMotor> ().enabled = false;
-		yield return new WaitForSeconds(3);
-		Application.LoadLevel(Application.loadedLevel);
-	}
+//	}
 }

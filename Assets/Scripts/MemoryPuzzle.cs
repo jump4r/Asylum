@@ -13,16 +13,15 @@ public class MemoryPuzzle : MonoBehaviour
 	public int gridY = 7;
 	public int difficultyLevel = 5;
 	public bool puzzleStarted = false;
-	public bool startup = false;
+	public bool isRunning = false;
 
-	private GameObject startTile, player;
+	public GameObject startTile, player;
 	private float spacing = 5f;
 	private int startX, startY, direction;
 	private bool pathFound;
-	private bool isRunning = false;
 	private GameObject [,] gridTiles;
 	private int[,] grid;
-	private float startTime;
+	public float startTime;
 	private int firstX, firstY;
 	private Vector3 startPos, endPos;
 	private float speed = 0;
@@ -30,34 +29,24 @@ public class MemoryPuzzle : MonoBehaviour
 	void Awake()
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
+		grid = new int [gridX,gridY];
+		gridTiles = new GameObject[gridX, gridY];
+	}
+
+	void Start()
+	{
+		FindPath ();
+		MakeGrid ();
+		MakeStartPlatform ();
 	}
 
 	void Update()
 	{
-		if(startup)
-		{
-			StartPuzzle();
-		}
-		if (isRunning)
-		{
-			CheckForPuzzleStart ();
-			MoveStartPlatform ();
-			CheckPlayerHeight ();
-		}
+		CheckForPuzzleStart ();
+		MoveStartPlatform ();
+		CheckPlayerHeight ();
 	}
 
-	void StartPuzzle()
-	{
-		Application.LoadLevel (1);
-		grid = new int [gridX,gridY];
-		gridTiles = new GameObject[gridX, gridY];
-		FindPath ();
-		MakeGrid ();
-		MakeStartPlatform ();
-		isRunning = true;
-		startup = false;
-	}
-	
 	void MoveStartPlatform ()
 	{
 		if (startTile.transform.position.y >= 0)
@@ -99,7 +88,7 @@ public class MemoryPuzzle : MonoBehaviour
 		float mag = Mathf.Sqrt(Mathf.Pow ((firstX - xStart), 2) + Mathf.Pow ((firstY - yStart), 2));
 		startPos = new Vector3(xStart, mag * 2, yStart);
 		glowingTile.renderer.material = invisTile;
-		glowingTile.tag = "";
+		glowingTile.tag = "Untagged";
 		startTile = Instantiate(glowingTile, startPos, Quaternion.identity) as GameObject;
 		startTime = Time.time;
 		endPos = new Vector3 (firstX, -0.05f, firstY) * spacing;
