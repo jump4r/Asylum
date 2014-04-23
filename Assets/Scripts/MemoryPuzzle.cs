@@ -9,21 +9,16 @@ public class MemoryPuzzle : MonoBehaviour
 	public Material endTile;
 	public Material invisTile;
 	public GameObject glowingTile;
-	public int gridX = 7;
-	public int gridY = 7;
-	public int difficultyLevel = 5;
-	public bool puzzleStarted = false;
 
 	private GameObject startTile, player, gameController;
-	private float spacing = 5f;
-	private int startX, startY, direction;
+	private int startX, startY, direction, firstX, firstY, gridX, gridY, difficultyLevel;
 	private bool pathFound;
 	private GameObject [,] gridTiles;
 	private int[,] grid;
-	private float startTime;
-	private int firstX, firstY;
+	private float startTime, speed;
 	private Vector3 startPos, endPos;
-	private float speed = 0;
+	private float spacing = 5f;
+	private bool puzzleStarted = false;
 
 	void Awake()
 	{
@@ -45,18 +40,28 @@ public class MemoryPuzzle : MonoBehaviour
 
 	void Update()
 	{
-		CheckForPuzzleStart ();
-		MoveStartPlatform ();
+		StartingSequence ();
 		CheckPlayerHeight ();
 	}
 
-	void MoveStartPlatform ()
+	void StartingSequence ()
 	{
 		if (startTile.transform.position.y >= 0)
 		{
 			speed = (Time.time - startTime) / (difficultyLevel / 2.0f);
 			startTile.transform.position = new Vector3(Mathf.SmoothStep(startPos.x, endPos.x, speed), Mathf.SmoothStep(startPos.y, endPos.y, speed/2), Mathf.SmoothStep(startPos.z, endPos.z, speed));
-			player.transform.position = startTile.transform.position+transform.up;
+			player.transform.position = startTile.transform.position + transform.up;
+		}
+		else if (!puzzleStarted)
+		{
+			puzzleStarted = true;
+			for (int y = 0; y < gridY; y++)
+			{
+				for (int x = 0; x < gridX; x++)
+				{
+					gridTiles[x,y].renderer.material = blankTile;
+				}
+			}
 		}
 	}
 
@@ -68,31 +73,15 @@ public class MemoryPuzzle : MonoBehaviour
 		}
 	}
 
-	void CheckForPuzzleStart()
-	{
-		if ((Time.time - startTime > difficultyLevel && puzzleStarted == false) || (Time.time - startTime < difficultyLevel && puzzleStarted == true))
-		{
-			puzzleStarted = true;
-			for (int y = 0; y < gridY; y++)
-			{
-				for (int x = 0; x < gridX; x++)
-				{
-					gridTiles[x,y].renderer.material = blankTile;
-					gridTiles[x,y].GetComponentInChildren<PuzzleTile>().puzzleStarted = true;
-				}
-			}
-		}
-	}
-
 	void MakeStartPlatform()
 	{
 		float xStart = gridX / 2.0f * spacing - spacing * 0.5f;
 		float yStart = spacing * -2;
 		float mag = Mathf.Sqrt(Mathf.Pow ((firstX - xStart), 2) + Mathf.Pow ((firstY - yStart), 2));
 		startPos = new Vector3(xStart, mag * 2, yStart);
-		glowingTile.renderer.material = invisTile;
-		glowingTile.tag = "Untagged";
 		startTile = Instantiate(glowingTile, startPos, Quaternion.identity) as GameObject;
+		startTile.tag = "GoodTile";
+		startTile.renderer.material = invisTile;
 		startTime = Time.time;
 		endPos = new Vector3 (firstX, -0.05f, firstY) * spacing;
 	}
@@ -107,20 +96,26 @@ public class MemoryPuzzle : MonoBehaviour
 				
 				if (grid[x,y] == 1)
 				{
-					glowingTile.renderer.material = goodTile;
-					glowingTile.tag = "GoodTile";
+					gridTiles [x,y] = Instantiate(glowingTile, pos, Quaternion.identity) as GameObject;
+					gridTiles [x,y].renderer.material = goodTile;
+					gridTiles [x,y].tag = "GoodTile";
+					gridTiles [x,y].name = x.ToString() + y.ToString();
 				}
 				else if (grid[x,y] == 2)
 				{
-					glowingTile.renderer.material = endTile;
-					glowingTile.tag = "GoalTile";
+					gridTiles [x,y] = Instantiate(glowingTile, pos, Quaternion.identity) as GameObject;
+					gridTiles [x,y].renderer.material = endTile;
+					gridTiles [x,y].tag = "GoalTile";
+					gridTiles [x,y].name = x.ToString() + y.ToString();
 				}
 				else
 				{
-					glowingTile.renderer.material = badTile;
-					glowingTile.tag = "BadTile";
+					gridTiles [x,y] = Instantiate(glowingTile, pos, Quaternion.identity) as GameObject;
+					gridTiles [x,y].renderer.material = badTile;
+					gridTiles [x,y].tag = "BadTile";
+					gridTiles [x,y].name = x.ToString() + y.ToString();
 				}
-				gridTiles [x,y] = Instantiate(glowingTile, pos, Quaternion.identity) as GameObject;
+				//gridTiles [x,y] = Instantiate(glowingTile, pos, Quaternion.identity) as GameObject;
 			}
 		}
 	}
