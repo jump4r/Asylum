@@ -15,7 +15,7 @@ public class Chaos : MonoBehaviour {
 	{
 		crazyObjs = GameObject.FindGameObjectWithTag ("CrazyObjs");
 		allCrazies = crazyObjs.GetComponentsInChildren<Transform>();
-		playerLight = GameObject.Find ("PlayerLight").GetComponent<Light>();
+		//playerLight = GameObject.Find ("PlayerLight").GetComponent<Light>();
 	}
 
 	/* check if a given point in 3d space is within the player's FOV */
