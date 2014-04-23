@@ -12,6 +12,7 @@ public class JournalRead : MonoBehaviour{
 	public bool valid; // is valid conversation, or use default speech. Needs to be public so I can access in ConvTrigger.
 	
 	private bool active_speech;
+	private bool spawn = false; // Determine if player needs to spawn after puzzle is done.
 	private GameObject screen_text; // Subtitles that appears on the screen
 	private float sub_switch;	// Used for subtitles.
 	private int current_sub;	// The current index of the subtitle
@@ -62,6 +63,9 @@ public class JournalRead : MonoBehaviour{
 		if (active_speech && !audio.isPlaying) { // If talking, Determine when to switch the subtitles.
 			active_speech = false;
 			EndConversation();
+			if (spawn) {
+				GameObject.FindGameObjectWithTag("Player").transform.position = GameObject.FindGameObjectWithTag("SpawnLoc").transform.position;
+			}
 		} 
 		
 		else if (active_speech) {	
@@ -85,6 +89,7 @@ public class JournalRead : MonoBehaviour{
 			audio.Play ();
 		}
 
+		// (Andrew 'jsx' puzzle
 		// Hacky solution, but mute audio when a special journal is being played, because it will need to be a 3D sound.
 		if (jour.tag == "Journal2") { // MATT's journal, used as a sub until George's is in the game.
 			GameObject cutscene = GameObject.Find ("George Cutscene");
@@ -92,11 +97,17 @@ public class JournalRead : MonoBehaviour{
 			audio.mute = true;
 		} 
 
-		// #believe
+		// Padding Markus's Github stats (Markus' Puzzle)
+		if (jour.tag == "Journal3") {
+			GameObject.FindGameObjectWithTag ("GameController").GetComponent<TetrisManager>().startPuzzle(0);	
+			spawn = true;
+		}
+
+
+		// #believe (Nick's Puzzle)
 		if (jour.tag == "Journal4") {
 			Application.LoadLevel ("memory-puzzle");
 		}
-
 
 		// Instatiiate 3D Text the the screen. Useful in Oculus.
 		Debug.Log ("Trigger 3D Text");
@@ -112,6 +123,7 @@ public class JournalRead : MonoBehaviour{
 		if (valid) {
 			GetComponent<Journal>().FinishRead ();
 			Destroy (screen_text);
+			spawn = false;
 		}
 	}
 	
