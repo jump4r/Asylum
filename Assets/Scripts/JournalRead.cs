@@ -24,6 +24,8 @@ public class JournalRead : MonoBehaviour{
 		active_speech = false;
 		sub_switch = 0;
 		current_sub = 0;
+
+		DontDestroyOnLoad (transform.parent);
 	}
 
 	// Setup with the correct conversation based off of the tag.
@@ -89,6 +91,11 @@ public class JournalRead : MonoBehaviour{
 			cutscene.GetComponent<CutsceneGeorge> ().Begin (journal_clip);
 			audio.mute = true;
 		} 
+
+		// #believe
+		if (jour.tag == "Journal4") {
+			Application.LoadLevel ("memory-puzzle");
+		}
 
 
 		// Instatiiate 3D Text the the screen. Useful in Oculus.
