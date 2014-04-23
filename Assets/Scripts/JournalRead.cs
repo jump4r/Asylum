@@ -115,7 +115,7 @@ public class JournalRead : MonoBehaviour{
 		screen_text = (GameObject)Instantiate(textPrefab, new Vector3(mc.transform.position.x, mc.transform.position.y - 25, mc.transform.position.z), Quaternion.identity);
 		screen_text.transform.parent = GameObject.FindGameObjectWithTag ("MainCamera").transform;
 		screen_text.transform.localRotation = Quaternion.Euler(mc.transform.localRotation.x, mc.transform.localRotation.y, mc.transform.localRotation.z);
-		screen_text.GetComponent<TextMesh>().fontSize = 50;
+		screen_text.GetComponent<TextMesh>().fontSize = 40;
 		screen_text.GetComponent<TextMesh>().offsetZ = 70;
 	}
 	
