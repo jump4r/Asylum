@@ -11,12 +11,16 @@ public class CutsceneGeorge : MonoBehaviour {
 	public string[] messages;
 	public GameObject player;
 	public GameObject spawn;
-	public Light halluroomLight;
+
+	public Light[] halluroomLights;
 
 	// Handles Text Flashing
 	private GameObject screenText; // text that will flash on the screen
 	private bool flash;	// Flash the text in Update?
 	private float timeAllot; // allotted time for flashing text
+
+	// Light Flashing
+	private float disableFlashing = 1f;
 
 	// Handles 3D Audio Playing
 	public AudioClip whisperClip; // Actually the the journal Clip to be played
@@ -41,6 +45,7 @@ public class CutsceneGeorge : MonoBehaviour {
 		changeDirection = 1f; // Direction of 3D audio will change every (cD) seconds
 		bool flash = false;
 		audio.volume = .1f;
+
 
 		// counter = 0; // Counter for the whisperClips.
 
@@ -139,6 +144,7 @@ public class CutsceneGeorge : MonoBehaviour {
 			FlashText ();
 	}
 
+	// I suppose FlashText isn't vialbe anymore. This starts the functions and sets up the puzzle.
 	// FlashText Flashes text on the screen, then afterwards calls the next part of this hallucination engine.
 	void FlashText() {
 		// Actual Flashing of the text
@@ -151,6 +157,9 @@ public class CutsceneGeorge : MonoBehaviour {
 		screenText.GetComponent<TextMesh>().offsetZ = 70;
 		screenText.GetComponent<TextMesh>().text = messages[0];
 		flash = true; // Set flashing flag to true
+
+		// Removes fog for pitch-blackness.
+		RenderSettings.fog = false;
 
 		// Invoke functions after alloted time to continue with the Cutscene.
 		Invoke("RemoveLights", timeAllot); // Move on to the next part in (3) seconds.
@@ -169,14 +178,18 @@ public class CutsceneGeorge : MonoBehaviour {
 
 	// Flashes Light in Halluroom.
 	void FlashHalluLight() {
-		float flashLightDet = Random.value;
-		if (flashLightDet < .96) {
-			halluroomLight.enabled = false;
-		}
+		foreach (Light l in halluroomLights) {
+			float flashLightDet = Random.value;
+			if (flashLightDet < .04) {
+				l.enabled = false;
+			}
 
-		else {
-			halluroomLight.enabled = true;
+			else if (disableFlashing < 0) {
+				l.enabled = true;
+				disableFlashing = 1f;
+			}
 		}
+		disableFlashing -= Time.deltaTime;
 	}
 
 	// Removes Lights from the parent making it darker.
@@ -264,5 +277,6 @@ public class CutsceneGeorge : MonoBehaviour {
 		flash = false;
 		is3DAudioPlaying = false;
 		player.transform.position = spawn.transform.position;
+		RenderSettings.fog = true;
 	}
 }
