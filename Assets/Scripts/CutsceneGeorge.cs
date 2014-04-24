@@ -11,6 +11,7 @@ public class CutsceneGeorge : MonoBehaviour {
 	public string[] messages;
 	public GameObject player;
 	public GameObject spawn;
+	public Light halluroomLight;
 
 	// Handles Text Flashing
 	private GameObject screenText; // text that will flash on the screen
@@ -18,17 +19,21 @@ public class CutsceneGeorge : MonoBehaviour {
 	private float timeAllot; // allotted time for flashing text
 
 	// Handles 3D Audio Playing
-	public AudioClip whisperClip;
-	private GameObject whisper;
+	public AudioClip whisperClip; // Actually the the journal Clip to be played
+	private GameObject whisper;   // The game object to be moved around the GeorgeHalluroom
 
-	private Vector3 initialPosition;
+	private Vector3 initialPosition; 
 	private bool is3DAudioPlaying;
 	private GameObject mc;
-	private int counter;
-	private float changeDirection;
-	private float speed;
-	private Vector3 vel;
-	private bool reverseAudioDirection;
+
+	// private int counter;
+	private float changeDirection;	// Float to saying when (whisper) should change direction
+	private float speed;			// Speed of (whisper)
+	private Vector3 vel;			// Velocity of (whisper)
+	private bool reverseAudioDirection;	// Reverse when too far away from the player;
+
+	// Player used to transfer scenes and play audio.
+
 
 	// Use this for initialization
 	void Start () {
@@ -37,7 +42,7 @@ public class CutsceneGeorge : MonoBehaviour {
 		bool flash = false;
 		audio.volume = .1f;
 
-		counter = 0; // Counter for the whisperClips.
+		// counter = 0; // Counter for the whisperClips.
 
 		// Handles Moving Audio
 		is3DAudioPlaying = false;
@@ -86,6 +91,9 @@ public class CutsceneGeorge : MonoBehaviour {
 
 		// Move Sound.
 		if (is3DAudioPlaying) {
+			// Flash lights in Halluroom
+			FlashHalluLight();
+
 			// Check to see if we need to change the direction of the audio (every 1 second)
 			if (changeDirection > 0) {
 				changeDirection -= Time.deltaTime;
@@ -133,6 +141,7 @@ public class CutsceneGeorge : MonoBehaviour {
 
 	// FlashText Flashes text on the screen, then afterwards calls the next part of this hallucination engine.
 	void FlashText() {
+		// Actual Flashing of the text
 		Debug.Log ("Flash the text!");
 		mc = GameObject.FindGameObjectWithTag ("MainCamera");
 		screenText = (GameObject)Instantiate(textPrefab, new Vector3(mc.transform.position.x, mc.transform.position.y, mc.transform.position.z), Quaternion.identity);
@@ -143,6 +152,7 @@ public class CutsceneGeorge : MonoBehaviour {
 		screenText.GetComponent<TextMesh>().text = messages[0];
 		flash = true; // Set flashing flag to true
 
+		// Invoke functions after alloted time to continue with the Cutscene.
 		Invoke("RemoveLights", timeAllot); // Move on to the next part in (3) seconds.
 		Invoke("BeginAudio", timeAllot); // Plays Creepy 2D Sound
 		Invoke("Play3DAudio", 0f); // Plays 3D Whisper/Text
@@ -154,6 +164,19 @@ public class CutsceneGeorge : MonoBehaviour {
 		Debug.Log ("Move Player");
 		initialPosition = player.transform.position;
 		player.transform.position = GameObject.Find ("Teleport George").transform.position;
+		whisper.transform.position = player.transform.position;
+	}
+
+	// Flashes Light in Halluroom.
+	void FlashHalluLight() {
+		float flashLightDet = Random.value;
+		if (flashLightDet < .96) {
+			halluroomLight.enabled = false;
+		}
+
+		else {
+			halluroomLight.enabled = true;
+		}
 	}
 
 	// Removes Lights from the parent making it darker.
@@ -196,6 +219,7 @@ public class CutsceneGeorge : MonoBehaviour {
 		Debug.Log ("Create 3D Audio GO");
 		whisper = (GameObject)Instantiate (new GameObject ());
 		mc = GameObject.FindGameObjectWithTag ("MainCamera");
+
 		whisper.transform.position = new Vector3 (mc.transform.position.x + 2, mc.transform.position.y, mc.transform.position.z + 2);
 
 		// Add Audio Source for whisper
