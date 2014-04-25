@@ -1,0 +1,122 @@
+fileFormatVersion: 2
+guid: 40996711d016e4912b97b5879779ea5c
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: torturetable:pCube1
+    100004: torturetable:pCylinder1
+    100006: torturetable:pCylinder2
+    100008: torturetable:pCylinder3
+    100010: torturetable:pCylinder4
+    100012: torturetable:pCylinder5
+    100014: torturetable:pCylinder6
+    100016: torturetable:pCylinder7
+    100018: torturetable:pCylinder8
+    100020: torturetable:polySurface1
+    100022: torturetable:polySurface2
+    100024: torturetable:pPipe1
+    100026: torturetable:pPipe2
+    100028: torturetable:pPipe3
+    100030: torturetable:pPipe4
+    100032: torturetable:transform1
+    100034: torturetable:transform10
+    100036: torturetable:transform11
+    100038: torturetable:transform12
+    100040: torturetable:transform13
+    100042: torturetable:transform14
+    100044: torturetable:transform2
+    100046: torturetable:transform3
+    100048: torturetable:transform4
+    100050: torturetable:transform5
+    100052: torturetable:transform6
+    100054: torturetable:transform7
+    100056: torturetable:transform8
+    100058: torturetable:transform9
+    400000: //RootNode
+    400002: torturetable:pCube1
+    400004: torturetable:pCylinder1
+    400006: torturetable:pCylinder2
+    400008: torturetable:pCylinder3
+    400010: torturetable:pCylinder4
+    400012: torturetable:pCylinder5
+    400014: torturetable:pCylinder6
+    400016: torturetable:pCylinder7
+    400018: torturetable:pCylinder8
+    400020: torturetable:polySurface1
+    400022: torturetable:polySurface2
+    400024: torturetable:pPipe1
+    400026: torturetable:pPipe2
+    400028: torturetable:pPipe3
+    400030: torturetable:pPipe4
+    400032: torturetable:transform1
+    400034: torturetable:transform10
+    400036: torturetable:transform11
+    400038: torturetable:transform12
+    400040: torturetable:transform13
+    400042: torturetable:transform14
+    400044: torturetable:transform2
+    400046: torturetable:transform3
+    400048: torturetable:transform4
+    400050: torturetable:transform5
+    400052: torturetable:transform6
+    400054: torturetable:transform7
+    400056: torturetable:transform8
+    400058: torturetable:transform9
+    2300000: torturetable:polySurface2
+    3300000: torturetable:polySurface2
+    4300000: torturetable:polySurface2
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
