@@ -8,6 +8,7 @@ public class JournalRead : MonoBehaviour{
 	public GameObject textPrefab; // Prefab of TextMesh.
 	public CutsceneGeorge georgeCutscene; // CutsceneScript for GEORGE.
 
+
 	[HideInInspector]
 	public bool valid; // is valid conversation, or use default speech. Needs to be public so I can access in ConvTrigger.
 	
@@ -19,9 +20,11 @@ public class JournalRead : MonoBehaviour{
 	private string[] subtitle;	// Total Array of subtitle strings in the journal
 	// Use this for initialization
 	private JournalManager jm;
+	private AudioManager aManager;
 	
 	void Start () {
 		jm = GameObject.FindGameObjectWithTag("GameController").GetComponent<JournalManager> ();
+		aManager = GameObject.FindGameObjectWithTag ("AudioManager").GetComponent<AudioManager> ();
 		active_speech = false;
 		sub_switch = 0;
 		current_sub = 0;
@@ -89,12 +92,19 @@ public class JournalRead : MonoBehaviour{
 			audio.Play ();
 		}
 
-		// (Andrew 'jsx' puzzle
+		// (Andrew 'jsx' puzzle)
 		// Hacky solution, but mute audio when a special journal is being played, because it will need to be a 3D sound.
-		if (jour.tag == "Journal2") { // MATT's journal, used as a sub until George's is in the game.
+		/*if (jour.tag == "Journal5") { // MATT's journal, used as a sub until George's is in the game.
 			GameObject cutscene = GameObject.Find ("George Cutscene");
 			cutscene.GetComponent<CutsceneGeorge> ().Begin (journal_clip);
 			audio.mute = true;
+		} */
+
+		// MATT's journal, used as a sub until George's is in the game. (David's puzzle)
+		if (jour.tag == "Journal2") {
+			aManager.journalPlayed = jour;
+			Application.LoadLevel ("thescene");
+			EndConversation();
 		} 
 
 		// Padding Markus's Github stats (Markus' Puzzle)
@@ -107,6 +117,7 @@ public class JournalRead : MonoBehaviour{
 		// #believe (Nick's Puzzle)
 		if (jour.tag == "Journal4") {
 			Application.LoadLevel ("memory-puzzle");
+			jm.hideJournals ();
 		}
 
 		// Instatiiate 3D Text the the screen. Useful in Oculus.
@@ -121,7 +132,9 @@ public class JournalRead : MonoBehaviour{
 	
 	void EndConversation() {
 		if (valid) {
-			GetComponent<Journal>().FinishRead ();
+			GetComponent<Journal>().current_journal += 1;
+			GetComponent<Journal>().transform.localPosition = GetComponent<Journal>().journal_locs[GetComponent<Journal>().current_journal];
+			Debug.Log ("Journal " + GetComponent<Journal>().name + "'s current conv is " + GetComponent<Journal>().current_journal);
 			Destroy (screen_text);
 			spawn = false;
 		}

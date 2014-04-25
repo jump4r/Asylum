@@ -12,7 +12,7 @@ public class Journal : MonoBehaviour {
 	[HideInInspector]
 	public string[] state;
 
-	private int current_journal;
+	public int current_journal;
 	// Use this for initialization
 	void Start () {
 		current_journal = 0;
