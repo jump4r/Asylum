@@ -11,14 +11,15 @@ public class JournalManager : MonoBehaviour {
 		journals[1] = GameObject.FindGameObjectWithTag("Journal2").GetComponent<Journal>();
 		journals[2] = GameObject.FindGameObjectWithTag("Journal3").GetComponent<Journal>();
 		journals[3] = GameObject.FindGameObjectWithTag("Journal4").GetComponent<Journal>();
+
+		showJournals ();
+		placeJournals ();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	if (journals[0].GetCurrentJournal () != 0) {
-	//		
-		}
+
 	}
 
 	// Determines whether ANY journal is playing.
@@ -30,7 +31,25 @@ public class JournalManager : MonoBehaviour {
 		}
 		return false;
 	}
-	
+
+	public void hideJournals() {
+		foreach (Journal j in journals) {
+			j.gameObject.GetComponent<MeshRenderer>().enabled = false;
+		}
+	}
+
+	public void showJournals() {
+		foreach (Journal j in journals) {
+			j.gameObject.GetComponent<MeshRenderer>().enabled = true;
+		}
+	}
+
+	public void placeJournals() {
+		foreach (Journal j in journals) {
+			j.transform.localPosition = j.journal_locs[j.current_journal];
+		}
+	}
+
 	string[] ParsePreq(TextAsset ta) {	// This like wasn't even needed now that I took all the shit out of it but i'm keeping it anyway fight me about it.
 		string[] preq = ta.text.Split ("\n"[0]);
 		return preq;
