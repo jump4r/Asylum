@@ -66,7 +66,7 @@ public class MenuScript : MonoBehaviour {
 			if(selected == 0)//if its on resume
 				Time.timeScale = timescale; //unfreeze
 			if(selected == 1)//if its on quit
-				Application.Quit() //quit to desktop
+				Application.Quit(); //quit to desktop
 		}
 
 	}

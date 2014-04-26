@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using System.Collections;
 
 public class ExamineObject : MonoBehaviour {
@@ -127,3 +127,4 @@ public class ExamineObject : MonoBehaviour {
 		isExamining = false;
 	}
 }
+*/
