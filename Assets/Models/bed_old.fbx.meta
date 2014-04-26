@@ -137,6 +137,32 @@ ModelImporter:
     4300046: bed_old_text:polySurface32
     4300048: bed_old_text:polySurface33
     4300050: bed_old_text:polySurface34
+    6400000: bed_old_text:pCube1
+    6400002: bed_old_text:polySurface10
+    6400004: bed_old_text:polySurface11
+    6400006: bed_old_text:polySurface12
+    6400008: bed_old_text:polySurface13
+    6400010: bed_old_text:polySurface14
+    6400012: bed_old_text:polySurface15
+    6400014: bed_old_text:polySurface16
+    6400016: bed_old_text:polySurface17
+    6400018: bed_old_text:polySurface22
+    6400020: bed_old_text:polySurface23
+    6400022: bed_old_text:polySurface24
+    6400024: bed_old_text:polySurface25
+    6400026: bed_old_text:polySurface26
+    6400028: bed_old_text:polySurface27
+    6400030: bed_old_text:polySurface28
+    6400032: bed_old_text:polySurface29
+    6400034: bed_old_text:polySurface30
+    6400036: bed_old_text:polySurface31
+    6400038: bed_old_text:polySurface32
+    6400040: bed_old_text:polySurface33
+    6400042: bed_old_text:polySurface34
+    6400044: bed_old_text:polySurface6
+    6400046: bed_old_text:polySurface7
+    6400048: bed_old_text:polySurface8
+    6400050: bed_old_text:polySurface9
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -158,10 +184,10 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     weldVertices: 1

@@ -182,6 +182,7 @@ ModelImporter:
     2300000: polySurface725
     3300000: polySurface725
     4300000: polySurface725
+    6400000: polySurface725
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -204,10 +205,10 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     weldVertices: 1

@@ -89,6 +89,22 @@ ModelImporter:
     4300026: pCube4
     4300028: pCube5
     4300030: pCube6
+    6400000: pCube1
+    6400002: pCube2
+    6400004: pCube3
+    6400006: pCube4
+    6400008: pCube5
+    6400010: pCube6
+    6400012: polySurface1
+    6400014: polySurface10
+    6400016: polySurface11
+    6400018: polySurface12
+    6400020: polySurface13
+    6400022: polySurface14
+    6400024: polySurface15
+    6400026: polySurface16
+    6400028: polySurface17
+    6400030: polySurface18
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -110,10 +126,10 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     weldVertices: 1
