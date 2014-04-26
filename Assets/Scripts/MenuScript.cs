@@ -4,7 +4,7 @@ using System.Collections;
 public class MenuScript : MonoBehaviour {
 
 	public GameObject[] button_prefabs; // 1 TEXT_PREFAB Per Button.
-
+	float timescale; 					//might break everything
 	private int selected = 0; 
 	private bool menu_active = false; // Is the menu active or not
 	private GameObject[] buttons; // The Actual Buttons
@@ -36,8 +36,11 @@ public class MenuScript : MonoBehaviour {
 			}
 			// Set Init select as red so I down waste it in Update
 			buttons[0].renderer.material.color = jblue;
+			timescale = Time.timeScale;
+			Time.timeScale = 0f;
+			//freeze game------------------------------------------------------------
 		} 
-
+		//button 0 = resume, 1 = options. 2 = quit.
 		else if (menu_active) {
 			Debug.Log ("Destroy Buttons");
 			for (int i = 0; i < button_prefabs.Length; i++) {
@@ -58,7 +61,15 @@ public class MenuScript : MonoBehaviour {
 			buttons[selected].renderer.material.color = jblue;
 		}
 	}
+	public void AcceptSelection() {
+		if(menu_active) {
+			if(selected == 0)//if its on resume
+				Time.timeScale = timescale; //unfreeze
+			if(selected == 1)//if its on quit
+				Application.Quit() //quit to desktop
+		}
 
+	}
 	// Change the selected menu button (up)
 	public void ChangeSelectedUp() {
 		if (menu_active) {

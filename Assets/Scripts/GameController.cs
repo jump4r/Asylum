@@ -54,6 +54,9 @@ public class GameController : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.DownArrow))
 			menu.ChangeSelectedDown ();
 
+		if (Input.GetKeyDown (KeyCode.KeypadEnter))
+			menu.AcceptSelection();
+
 		if (Input.GetKeyDown (KeyCode.UpArrow))
 			menu.ChangeSelectedUp ();
 	}
