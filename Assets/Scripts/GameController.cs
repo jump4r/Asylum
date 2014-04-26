@@ -11,7 +11,8 @@ public class GameController : MonoBehaviour {
 	public int gridX = 7;
 	public int gridY = 7;
 	public int difficultyLevel = 5;
-
+	private Vector3 mainLevelLoc;
+	private GameObject player;
 
 	/* init stuff */
 	void Awake ()
@@ -19,7 +20,7 @@ public class GameController : MonoBehaviour {
 		DontDestroyOnLoad(transform.gameObject);
 		GameObject mainCamera = GameObject.Find ("Main Camera");
 		GameObject riftCamera = GameObject.FindGameObjectWithTag("OVRCamera");
-		GameObject player = GameObject.FindGameObjectWithTag ("Player");
+		player = GameObject.FindGameObjectWithTag ("Player");
 		menu = GetComponent<MenuScript> ();
 
 		if(OVRDevice.IsSensorPresent()) {
@@ -36,6 +37,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		Screen.lockCursor = true;
+		mainLevelLoc = new Vector3 (0, 1, 10);
 	}
 
 	/* update */
@@ -59,6 +61,17 @@ public class GameController : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.UpArrow))
 			menu.ChangeSelectedUp ();
+
+
+	}
+
+	void OnLevelWasLoaded(int level)
+	{
+		if (level == 1)
+		{
+			Debug.Log ("Level 1 loaded.");
+			player.transform.position = mainLevelLoc;
+		}
 	}
 
 	/* print FPS in upper left */
