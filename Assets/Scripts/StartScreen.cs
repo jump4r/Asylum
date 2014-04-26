@@ -3,14 +3,13 @@ using System.Collections;
 
 public class StartScreen : MonoBehaviour {
 
-	public GameObject player, door, direction;
+	public GameObject player, door;
 	private CharacterController movement;
 	private AudioSource sound;
 	private TextMesh start, quit;
 	private bool starting = false;
 	private int selected = 0;
 	private float startTime;
-	private Quaternion openDoor, closeDoor;
 	public enum Axis { LeftXAxis, LeftYAxis, RightXAxis, RightYAxis, LeftTrigger, RightTrigger };
 	public enum Button { A, B, X, Y, Up, Down, Left, Right, Start, Back, LStick, RStick, L1, R1 };
 
@@ -20,14 +19,9 @@ public class StartScreen : MonoBehaviour {
 		start = GameObject.Find ("Start").GetComponent<TextMesh> ();
 		quit = GameObject.Find ("Quit").GetComponent<TextMesh> ();
 		door = GameObject.Find ("Door");
-		direction = GameObject.Find ("Direction");
 		sound = gameObject.GetComponent<AudioSource> ();
 		movement = player.GetComponent<CharacterController> ();
 		movement.enabled = false;
-		closeDoor = door.transform.rotation;
-		door.transform.Rotate (0, 90, 0);
-		openDoor = door.transform.rotation;
-		door.transform.Rotate (0, -90, 0);
 	
 	}
 	
@@ -72,7 +66,8 @@ public class StartScreen : MonoBehaviour {
 			player.transform.Translate(transform.forward / 8);
 			if (Time.time - startTime > 3.0f)
 			{
-				Application.LoadLevel(1);
+				movement.enabled = true;
+				Application.LoadLevel(0);
 			}
 		}
 	}
