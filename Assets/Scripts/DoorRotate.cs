@@ -6,10 +6,11 @@ public class DoorRotate : MonoBehaviour {
 	private float DoorOpenAngle = -135.0f;
 	private float DoorCloseAngle = 0.0f;
 	private bool open = false; 
-
+	private float yrotate;
+	private Vector3 newrotate = new Vector3(0,0,0);
 	// Use this for initialization
 	void Start () {
-
+		yrotate = transform.rotation.y;
 	}
 	
 	// Update is called once per frame
@@ -25,9 +26,7 @@ public class DoorRotate : MonoBehaviour {
 			transform.localRotation = Quaternion.Slerp (transform.localRotation, targetRotation0, Time.deltaTime * smooth);
 		}*/ 
 
-		if (!animation.isPlaying) {
-			audio.Stop();
-		}
+
 	}
 
 	void OnTriggerEnter(Collider col) {
@@ -35,10 +34,13 @@ public class DoorRotate : MonoBehaviour {
 
 		// animation ["door_open"].wrapMode = WrapMode.Once;
 		if (!open) {
-			animation ["door_open"].speed = .5f + Random.value;
-			open = true;
-			animation.Play ("door_open");
-			audio.Play ();
+			while(yrotate < yrotate + 90) {//while not rotated
+				newrotate.y = transform.position.y + 4;
+				transform.position = newrotate;
+			}//rotate a lil bit
+			open= true;//if rotated 90
+				//open = true
+
 		}
 	}
 
