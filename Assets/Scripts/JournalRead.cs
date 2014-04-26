@@ -29,6 +29,7 @@ public class JournalRead : MonoBehaviour{
 		sub_switch = 0;
 		current_sub = 0;
 
+		Debug.Log (name + " Should not destroy on load");
 		DontDestroyOnLoad (transform.parent);
 	}
 

@@ -37,7 +37,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		Screen.lockCursor = true;
-		mainLevelLoc = new Vector3 (0, 1, 10);
+		mainLevelLoc = new Vector3 (0, 2, 10);
 	}
 
 	/* update */
@@ -70,7 +70,8 @@ public class GameController : MonoBehaviour {
 		if (level == 1)
 		{
 			Debug.Log ("Level 1 loaded.");
-			player.transform.position = mainLevelLoc;
+			player.transform.position = new Vector3 (0, 2, 10);
+			Debug.Log (player.transform.position);
 		}
 	}
 

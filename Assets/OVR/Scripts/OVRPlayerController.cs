@@ -319,6 +319,9 @@ public class OVRPlayerController : OVRComponent
 			
 		// Rotate
 		YRotation += rightAxisX * rotateInfluence;    
+
+		// Jump
+
 		
 	// Update cameras direction and rotation
 	SetCameras();
