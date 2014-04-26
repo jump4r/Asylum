@@ -67,7 +67,7 @@ public class StartScreen : MonoBehaviour {
 			if (Time.time - startTime > 3.0f)
 			{
 				movement.enabled = true;
-				Application.LoadLevel(0);
+				Application.LoadLevel(1);
 			}
 		}
 	}
