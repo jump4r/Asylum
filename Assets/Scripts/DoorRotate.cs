@@ -10,7 +10,7 @@ public class DoorRotate : MonoBehaviour {
 	private Vector3 newrotate = new Vector3(0,0,0);
 	// Use this for initialization
 	void Start () {
-		yrotate = transform.rotation.y;
+		yrotate = transform.parent.transform.rotation.y;
 	}
 	
 	// Update is called once per frame
@@ -35,8 +35,8 @@ public class DoorRotate : MonoBehaviour {
 		// animation ["door_open"].wrapMode = WrapMode.Once;
 		if (!open) {
 			while(yrotate < yrotate + 90) {//while not rotated
-				newrotate.y = transform.position.y + 4;
-				transform.position = newrotate;
+				newrotate.y = transform.parent.transform.position.y + 4;
+				transform.parent.transform.position = newrotate;
 			}//rotate a lil bit
 			open= true;//if rotated 90
 				//open = true
