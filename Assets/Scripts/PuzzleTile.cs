@@ -13,11 +13,11 @@ public class PuzzleTile : MonoBehaviour
 			{
 				if (transform.parent.tag == "BadTile")
 				{
-					Application.LoadLevel(1);
+					Application.LoadLevel(2);
 				}
 				else if (transform.parent.tag == "GoalTile")
 				{
-					Application.LoadLevel(0);
+					Application.LoadLevel(1);
 				}
 			}
 		}

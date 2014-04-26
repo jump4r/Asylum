@@ -321,7 +321,8 @@ public class OVRPlayerController : OVRComponent
 		YRotation += rightAxisX * rotateInfluence;    
 
 		// Jump
-
+		if (OVRGamepadController.GPC_GetButton ((int)OVRGamepadController.Button.B))
+						Jump ();
 		
 	// Update cameras direction and rotation
 	SetCameras();
@@ -355,7 +356,7 @@ public class OVRPlayerController : OVRComponent
 		if (!Controller.isGrounded)
 			return false;
 
-		MoveThrottle += new Vector3(0, JumpForce, 0);
+		MoveThrottle = new Vector3(Controller.velocity.x*.2f, JumpForce*2f, Controller.velocity.z*.2f);
 
 		return true;
 	}

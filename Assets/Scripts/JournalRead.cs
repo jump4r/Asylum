@@ -72,14 +72,14 @@ public class JournalRead : MonoBehaviour{
 			}
 		} 
 		
-		else if (active_speech) {	
+		/*else if (active_speech) {	
 			sub_switch += Time.deltaTime;	// Determine when to switch subtitles.
 			if (sub_switch > 2.65 && current_sub < subtitle.Length-2) { // Literally the most editable number in the game.
 				sub_switch = 0;
 				current_sub += 1;
 			}
 			screen_text.GetComponent<TextMesh>().text = subtitle[current_sub].ToString();
-		}
+		}*/
 	}
 	
 	public void TriggerConversation(Journal jour) {	// If the player collides with the zone, for now, start the audio.
@@ -122,6 +122,7 @@ public class JournalRead : MonoBehaviour{
 		}
 
 		// Instatiiate 3D Text the the screen. Useful in Oculus.
+		/*
 		Debug.Log ("Trigger 3D Text");
 		GameObject mc = GameObject.FindGameObjectWithTag ("MainCamera");
 		screen_text = (GameObject)Instantiate(textPrefab, new Vector3(mc.transform.position.x, mc.transform.position.y - 25, mc.transform.position.z), Quaternion.identity);
@@ -129,6 +130,7 @@ public class JournalRead : MonoBehaviour{
 		screen_text.transform.localRotation = Quaternion.Euler(mc.transform.localRotation.x, mc.transform.localRotation.y, mc.transform.localRotation.z);
 		screen_text.GetComponent<TextMesh>().fontSize = 40;
 		screen_text.GetComponent<TextMesh>().offsetZ = 70;
+		*/
 	}
 	
 	void EndConversation() {
@@ -136,7 +138,7 @@ public class JournalRead : MonoBehaviour{
 			GetComponent<Journal>().current_journal += 1;
 			GetComponent<Journal>().transform.localPosition = GetComponent<Journal>().journal_locs[GetComponent<Journal>().current_journal];
 			Debug.Log ("Journal " + GetComponent<Journal>().name + "'s current conv is " + GetComponent<Journal>().current_journal);
-			Destroy (screen_text);
+			//Destroy (screen_text);
 			spawn = false;
 		}
 	}
