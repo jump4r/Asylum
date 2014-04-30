@@ -20,13 +20,13 @@ public class AudioManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Determine's when to change the level
-		if (Application.loadedLevel != 0) {
+		/* if (Application.loadedLevel != 1) {
 			if (!journalPlayed.gameObject.audio.isPlaying) {
 				Destroy (transform.gameObject);
 				Application.LoadLevel ("asylum-test");
 			}
 		}
-		Debug.Log (Application.loadedLevel);
+		Debug.Log (Application.loadedLevel); */
 	}
 
 	// Plays the audio

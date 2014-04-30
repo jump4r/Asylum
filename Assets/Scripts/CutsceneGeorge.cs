@@ -9,10 +9,11 @@ public class CutsceneGeorge : MonoBehaviour {
 	public AudioClip flicker;
 	public AudioClip[] creepyClips;
 	public string[] messages;
-	public GameObject player;
 	public GameObject spawn;
 
 	public Light[] halluroomLights;
+
+	private GameObject player;
 
 	// Handles Text Flashing
 	private GameObject screenText; // text that will flash on the screen
@@ -45,6 +46,8 @@ public class CutsceneGeorge : MonoBehaviour {
 		changeDirection = 1f; // Direction of 3D audio will change every (cD) seconds
 		bool flash = false;
 		audio.volume = .1f;
+
+		player = GameObject.FindGameObjectWithTag ("Player");
 
 
 		// counter = 0; // Counter for the whisperClips.
@@ -135,6 +138,7 @@ public class CutsceneGeorge : MonoBehaviour {
 
 	// Begins the cutscene
 	public void Begin(AudioClip journalClip) {
+		Debug.Log ("Begin Called");
 		whisperClip = journalClip;
 		FlashText ();
 	}

@@ -28,7 +28,7 @@ public class StartScreen : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if(OVRGamepadController.GPC_GetButton ((int)Button.A))
+		if(OVRGamepadController.GPC_GetButton ((int)Button.A) || Input.GetKeyDown (KeyCode.Space))
 		{
 			if (selected == 0)
 			{

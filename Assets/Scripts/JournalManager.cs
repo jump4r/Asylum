@@ -6,11 +6,12 @@ public class JournalManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		journals = new Journal[4];
+		journals = new Journal[5];
 		journals[0] = GameObject.FindGameObjectWithTag("Journal1").GetComponent<Journal>();
 		journals[1] = GameObject.FindGameObjectWithTag("Journal2").GetComponent<Journal>();
 		journals[2] = GameObject.FindGameObjectWithTag("Journal3").GetComponent<Journal>();
 		journals[3] = GameObject.FindGameObjectWithTag("Journal4").GetComponent<Journal>();
+		journals[4] = GameObject.FindGameObjectWithTag("Journal5").GetComponent<Journal>();
 
 		showJournals ();
 		placeJournals ();

@@ -95,11 +95,11 @@ public class JournalRead : MonoBehaviour{
 
 		// (Andrew 'jsx' puzzle)
 		// Hacky solution, but mute audio when a special journal is being played, because it will need to be a 3D sound.
-		/*if (jour.tag == "Journal5") { // MATT's journal, used as a sub until George's is in the game.
+		if (jour.tag == "Journal5") { // MATT's journal, used as a sub until George's is in the game.
 			GameObject cutscene = GameObject.Find ("George Cutscene");
 			cutscene.GetComponent<CutsceneGeorge> ().Begin (journal_clip);
 			audio.mute = true;
-		} */
+		} 
 
 		// MATT's journal, used as a sub until George's is in the game. (David's puzzle)
 		if (jour.tag == "Journal2") {

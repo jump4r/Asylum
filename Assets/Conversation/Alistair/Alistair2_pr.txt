@@ -1,0 +1,5 @@
+Journal1 0
+Journal2 0
+Journal3 1
+Journal4 0
+Journal5 0
