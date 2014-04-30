@@ -228,8 +228,8 @@ public class OVRPlayerController : OVRComponent
 			MoveScale = 0.70710678f;
 			
 		// No positional movement if we are in the air
-		if (!Controller.isGrounded)	
-			MoveScale = 0.0f;
+		//if (!Controller.isGrounded)	
+		//	MoveScale = 0.0f;
 			
 		MoveScale *= DeltaTime;
 			
@@ -321,8 +321,8 @@ public class OVRPlayerController : OVRComponent
 		YRotation += rightAxisX * rotateInfluence;    
 
 		// Jump
-		if (OVRGamepadController.GPC_GetButton ((int)OVRGamepadController.Button.B))
-						Jump ();
+		if (OVRGamepadController.GPC_GetButton ((int)OVRGamepadController.Button.A))
+			Jump ();
 		
 	// Update cameras direction and rotation
 	SetCameras();
@@ -356,7 +356,7 @@ public class OVRPlayerController : OVRComponent
 		if (!Controller.isGrounded)
 			return false;
 
-		MoveThrottle = new Vector3(Controller.velocity.x*.2f, JumpForce*2f, Controller.velocity.z*.2f);
+		MoveThrottle = new Vector3(0, JumpForce, 0);
 
 		return true;
 	}
