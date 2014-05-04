@@ -11,7 +11,8 @@ public class JournalRead : MonoBehaviour{
 
 	[HideInInspector]
 	public bool valid; // is valid conversation, or use default speech. Needs to be public so I can access in ConvTrigger.
-	
+
+	private CharacterManager cm;
 	private bool active_speech;
 	private bool spawn = false; // Determine if player needs to spawn after puzzle is done.
 	private GameObject screen_text; // Subtitles that appears on the screen
@@ -23,6 +24,7 @@ public class JournalRead : MonoBehaviour{
 	private AudioManager aManager;
 	
 	void Start () {
+		cm = GameObject.FindGameObjectWithTag("GameController").GetComponent<CharacterManager> ();
 		jm = GameObject.FindGameObjectWithTag("GameController").GetComponent<JournalManager> ();
 		aManager = GameObject.FindGameObjectWithTag ("AudioManager").GetComponent<AudioManager> ();
 		active_speech = false;
@@ -99,12 +101,14 @@ public class JournalRead : MonoBehaviour{
 			GameObject cutscene = GameObject.Find ("George Cutscene");
 			cutscene.GetComponent<CutsceneGeorge> ().Begin (journal_clip);
 			audio.mute = true;
+			cm.ActivateCharacter("George");
 		} 
 
 		// MATT's journal, used as a sub until George's is in the game. (David's puzzle)
 		if (jour.tag == "Journal2") {
-			aManager.journalPlayed = jour;
+			// aManager.journalPlayed = jour;
 			Application.LoadLevel ("thescene");
+			cm.ActivateCharacter("Matthew");
 			EndConversation();
 		} 
 
@@ -112,6 +116,7 @@ public class JournalRead : MonoBehaviour{
 		if (jour.tag == "Journal3") {
 			GameObject.FindGameObjectWithTag ("GameController").GetComponent<TetrisManager>().startPuzzle(0);	
 			spawn = true;
+			cm.ActivateCharacter ("Alistar");
 		}
 
 
@@ -119,6 +124,8 @@ public class JournalRead : MonoBehaviour{
 		if (jour.tag == "Journal4") {
 			Application.LoadLevel ("memory-puzzle");
 			jm.hideJournals ();
+			cm.ActivateCharacter("Marissa");
+			Debug.Log ("Memory Puzzle");
 		}
 
 		// Instatiiate 3D Text the the screen. Useful in Oculus.
