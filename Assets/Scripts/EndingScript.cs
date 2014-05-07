@@ -27,7 +27,7 @@ public class EndingScript : MonoBehaviour {
 			renataEnding.transform.Translate (renataEnding.transform.forward/20);
 			sceneTime += Time.deltaTime;
 
-			if (sceneTime > 4.60f) {
+			if (sceneTime > 4.15f) {
 				//player.GetComponent<CharacterController>().enabled = true;
 				//player.transform.position = new Vector3(0,1,10);
 				hang = true;

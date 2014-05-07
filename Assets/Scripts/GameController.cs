@@ -14,6 +14,8 @@ public class GameController : MonoBehaviour {
 	private Vector3 mainLevelLoc;
 	private GameObject player;
 
+	private Vector3 savePositionBetweenScenes;
+
 	/* init stuff */
 	void Awake ()
 	{
@@ -22,6 +24,7 @@ public class GameController : MonoBehaviour {
 		GameObject riftCamera = GameObject.FindGameObjectWithTag("OVRCamera");
 		player = GameObject.FindGameObjectWithTag ("Player");
 		menu = GetComponent<MenuScript> ();
+		savePositionBetweenScenes = new Vector3 (0, 6.5f, 10);
 
 		if(OVRDevice.IsSensorPresent()) {
 			mainCamera.SetActive(false);
@@ -71,7 +74,7 @@ public class GameController : MonoBehaviour {
 		if (level == 1)
 		{
 			Debug.Log ("Level 1 loaded.");
-			player.transform.position = new Vector3 (0, 6.5f, 10);
+			player.transform.position = savePositionBetweenScenes;
 			Debug.Log (player.transform.position);
 		}
 	}

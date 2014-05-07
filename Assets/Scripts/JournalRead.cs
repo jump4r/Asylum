@@ -109,7 +109,7 @@ public class JournalRead : MonoBehaviour{
 			cm.ActivateCharacter("George");
 
 			// Test Case Open Basement Door
-			if (jour.GetCurrentJournal() >= 0) {
+			if (jour.GetCurrentJournal() >= 6) {
 				basementDoor = GameObject.FindGameObjectWithTag("LockedDoor");
 				basementDoor.transform.Rotate (0, -85, 0);
 				Debug.Log ("Basement Unlocked");
