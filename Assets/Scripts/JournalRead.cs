@@ -114,9 +114,15 @@ public class JournalRead : MonoBehaviour{
 				basementDoor.transform.Rotate (0, -85, 0);
 				Debug.Log ("Basement Unlocked");
 			}
-		} 
+		}
 
-		// MATT's journal, used as a sub until George's is in the game. (David's puzzle)
+		// Renata's Puzzle (Markus)
+		if (jour.tag == "Journal6") {
+			Application.LoadLevel (5);
+			//cm.ActivateCharacter("Renata");
+		}
+
+		// MATT's journal (David's puzzle)
 		if (jour.tag == "Journal2") {
 			// aManager.journalPlayed = jour;
 			Application.LoadLevel ("thescene");

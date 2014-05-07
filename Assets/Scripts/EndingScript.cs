@@ -3,13 +3,15 @@ using System.Collections;
 
 public class EndingScript : MonoBehaviour {
 	private GameObject player, spawnLoc, renataEnding;
-	private bool endingActive;
-	private float sceneTime;
+	private bool endingActive, hang;
+	private float sceneTime, hangTime;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag ("Player");
 		endingActive = false;
+		hang = false;
 		sceneTime = 0f;
+		hangTime = 0f;
 	}
 	
 	// Update is called once per frame
@@ -25,14 +27,22 @@ public class EndingScript : MonoBehaviour {
 			renataEnding.transform.Translate (renataEnding.transform.forward/20);
 			sceneTime += Time.deltaTime;
 
-			if (sceneTime > 4.5f) {
-				AutoFade.LoadLevel (1, 3, 1, Color.black);
+			if (sceneTime > 4.60f) {
 				//player.GetComponent<CharacterController>().enabled = true;
 				//player.transform.position = new Vector3(0,1,10);
-
+				hang = true;
 				endingActive = false;
 				sceneTime = 0f;
 
+			}
+		}
+
+		// hang before level change.
+		if (hang) {
+			hangTime += Time.deltaTime;
+			if (hangTime > 2f) {
+				hang = false;
+				AutoFade.LoadLevel (1, 3, 1, Color.black);
 			}
 		}
 	}
