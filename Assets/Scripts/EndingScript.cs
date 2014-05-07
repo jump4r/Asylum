@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class EndingScript : MonoBehaviour {
-	private GameObject player, spawnLoc;
+	private GameObject player, spawnLoc, renataEnding;
 	private bool endingActive;
 	private float sceneTime;
 	// Use this for initialization
@@ -22,11 +22,12 @@ public class EndingScript : MonoBehaviour {
 
 		if (endingActive) {
 			player.transform.Translate (player.transform.forward / 20);
+			renataEnding.transform.Translate (renataEnding.transform.forward/20);
 			sceneTime += Time.deltaTime;
 
-			if (sceneTime > 5f) {
+			if (sceneTime > 4.5f) {
 				AutoFade.LoadLevel (1, 3, 1, Color.black);
-				player.GetComponent<CharacterController>().enabled = true;
+				//player.GetComponent<CharacterController>().enabled = true;
 				//player.transform.position = new Vector3(0,1,10);
 
 				endingActive = false;
@@ -38,6 +39,8 @@ public class EndingScript : MonoBehaviour {
 
 	void PlayEnding () {
 		spawnLoc = GameObject.FindGameObjectWithTag ("EndingSpawn");
+		renataEnding = GameObject.FindGameObjectWithTag ("EndingRenata");
+
 		player.transform.position = spawnLoc.transform.position;
 		player.transform.rotation = spawnLoc.transform.rotation;
 
