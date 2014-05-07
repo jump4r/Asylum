@@ -67,7 +67,7 @@ public class StartScreen : MonoBehaviour {
 			if (Time.time - startTime > 3.0f)
 			{
 				movement.enabled = true;
-				player.transform.position = new Vector3(0,1,10);
+				player.transform.position = new Vector3(0,6.5f,10);
 				Application.LoadLevel(1);
 			}
 		}
