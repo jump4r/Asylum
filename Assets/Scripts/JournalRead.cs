@@ -16,6 +16,7 @@ public class JournalRead : MonoBehaviour{
 	public bool valid; // is valid conversation, or use default speech. Needs to be public so I can access in ConvTrigger.
 
 	private CharacterManager cm;
+	private GameController gc; // Game Controller
 	private bool active_speech;
 	private bool spawn = false; // Determine if player needs to spawn after puzzle is done.
 	private GameObject screen_text; // Subtitles that appears on the screen
@@ -29,6 +30,7 @@ public class JournalRead : MonoBehaviour{
 	void Start () {
 		cm = GameObject.FindGameObjectWithTag("GameController").GetComponent<CharacterManager> ();
 		jm = GameObject.FindGameObjectWithTag("GameController").GetComponent<JournalManager> ();
+		gc = GameObject.FindGameObjectWithTag ("GameController").GetComponent<GameController>();
 		aManager = GameObject.FindGameObjectWithTag ("AudioManager").GetComponent<AudioManager> ();
 		active_speech = false;
 		sub_switch = 0;
@@ -50,16 +52,16 @@ public class JournalRead : MonoBehaviour{
 			// If out of bounds, set the clips to 0, as that will be the default.
 			if (jour.GetCurrentJournal () >= jour.journal_clips.Length) {
 				journal_clip = jour.journal_clips [0];
-				journal_text = jour.journal_texts [0];
+				//journal_text = jour.journal_texts [0];
 			} 
-			
+
 			else {
 				journal_clip = jour.journal_clips [jour.GetCurrentJournal ()];
-				journal_text = jour.journal_texts [jour.GetCurrentJournal ()];
+				//journal_text = jour.journal_texts [jour.GetCurrentJournal ()];
 			}
 			
 			// Split raw txt into lines for parsing.
-			subtitle = journal_text.text.Split ("\n" [0]);
+			//subtitle = journal_text.text.Split ("\n" [0]);
 			
 			// Trigger the Conversation if Valid, depending on which Journal was selected
 
@@ -132,6 +134,9 @@ public class JournalRead : MonoBehaviour{
 
 		// #believe (Nick's Puzzle)
 		if (jour.tag == "Journal4") {
+			gc.gridX = 7 + jour.GetCurrentJournal() + 1;
+			gc.gridY = 7 + jour.GetCurrentJournal() + 1;
+			gc.difficultyLevel = 5 + jour.GetCurrentJournal ();
 			Application.LoadLevel ("memory-puzzle");
 			jm.hideJournals ();
 			cm.ActivateCharacter("Marissa");
