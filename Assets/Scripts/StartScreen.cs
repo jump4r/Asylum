@@ -7,7 +7,7 @@ public class StartScreen : MonoBehaviour {
 	private CharacterController movement;
 	private AudioSource sound;
 	private TextMesh start, quit;
-	private bool starting = false;
+	public bool starting = false;
 	private int selected = 0;
 	private float startTime;
 	public enum Axis { LeftXAxis, LeftYAxis, RightXAxis, RightYAxis, LeftTrigger, RightTrigger };
@@ -28,7 +28,19 @@ public class StartScreen : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if(OVRGamepadController.GPC_GetButton ((int)Button.A) || Input.GetKeyDown (KeyCode.Space))
+		if(starting)
+		{
+			door.transform.Rotate (0,2,0);
+			player.transform.Translate(transform.forward / 4);
+			if (Time.time - startTime > 3.0f)
+			{
+				movement.enabled = true;
+				player.transform.position = new Vector3(0,6.5f,10);
+				Application.LoadLevel(1);
+			}
+		}
+
+		else if(OVRGamepadController.GPC_GetButton ((int)Button.A) || Input.GetKeyDown (KeyCode.Space))
 		{
 			if (selected == 0)
 			{
@@ -59,18 +71,7 @@ public class StartScreen : MonoBehaviour {
 			start.renderer.material.SetColor("_Color", Color.gray);
 			quit.renderer.material.SetColor("_Color", Color.white);
 		}
-
-		if(starting)
-		{
-			door.transform.Rotate (0,1,0);
-			player.transform.Translate(transform.forward / 8);
-			if (Time.time - startTime > 3.0f)
-			{
-				movement.enabled = true;
-				player.transform.position = new Vector3(0,6.5f,10);
-				Application.LoadLevel(1);
-			}
-		}
+		
 	}
 
 	void StartSequence()
