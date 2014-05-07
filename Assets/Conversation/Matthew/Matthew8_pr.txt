@@ -1,5 +1,5 @@
-Journal1 0
-Journal2 0
+Journal1 4
+Journal2 7
 Journal3 0
 Journal4 0
 Journal5 0

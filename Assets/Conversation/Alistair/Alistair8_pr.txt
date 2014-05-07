@@ -1,6 +1,6 @@
-Journal1 0
+Journal1 4
 Journal2 0
-Journal3 2
+Journal3 7
 Journal4 0
 Journal5 0
 Journal6 0

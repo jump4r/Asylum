@@ -1,4 +1,4 @@
-Journal1 0
+Journal1 3
 Journal2 0
 Journal3 0
 Journal4 0
