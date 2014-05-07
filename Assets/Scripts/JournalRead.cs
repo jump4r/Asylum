@@ -107,13 +107,7 @@ public class JournalRead : MonoBehaviour{
 			cutscene.GetComponent<CutsceneGeorge> ().Begin (journal_clip);
 			audio.mute = true;
 			cm.ActivateCharacter("George");
-
-			// Test Case Open Basement Door
-			if (jour.GetCurrentJournal() >= 6) {
-				basementDoor = GameObject.FindGameObjectWithTag("LockedDoor");
-				basementDoor.transform.Rotate (0, -85, 0);
-				Debug.Log ("Basement Unlocked");
-			}
+		
 		}
 
 		// Renata's Puzzle (Markus)
@@ -125,12 +119,18 @@ public class JournalRead : MonoBehaviour{
 		// MATT's journal (David's puzzle)
 		if (jour.tag == "Journal2") {
 			// aManager.journalPlayed = jour;
-			Application.LoadLevel ("thescene");
+			Application.LoadLevel (3);
 			cm.ActivateCharacter("Matthew");
 			EndConversation();
+
+			if (jour.GetCurrentJournal() >= 6) {
+				basementDoor = GameObject.FindGameObjectWithTag("LockedDoor");
+				basementDoor.transform.Rotate (0, -85, 0);
+				Debug.Log ("Basement Unlocked");
+			}
 		} 
 
-		// Padding Markus's Github stats (Markus' Puzzle)
+		// Padding Markus's Github stats (Markus' Puzzle) Alistar
 		if (jour.tag == "Journal3") {
 			GameObject.FindGameObjectWithTag ("GameController").GetComponent<TetrisManager>().startPuzzle(0);	
 			spawn = true;

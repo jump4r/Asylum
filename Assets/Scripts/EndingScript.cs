@@ -24,10 +24,10 @@ public class EndingScript : MonoBehaviour {
 
 		if (endingActive) {
 			player.transform.Translate (player.transform.forward / 20);
-			renataEnding.transform.Translate (renataEnding.transform.forward/20);
+			renataEnding.transform.Translate (-1 * renataEnding.transform.forward/20);
 			sceneTime += Time.deltaTime;
 
-			if (sceneTime > 4.15f) {
+			if (sceneTime > 4.25f) {
 				//player.GetComponent<CharacterController>().enabled = true;
 				//player.transform.position = new Vector3(0,1,10);
 				hang = true;
