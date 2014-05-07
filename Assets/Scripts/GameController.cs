@@ -71,7 +71,7 @@ public class GameController : MonoBehaviour {
 		if (level == 1)
 		{
 			Debug.Log ("Level 1 loaded.");
-			player.transform.position = new Vector3 (0, 2, 10);
+			player.transform.position = new Vector3 (0, 6.5f, 10);
 			Debug.Log (player.transform.position);
 		}
 	}
