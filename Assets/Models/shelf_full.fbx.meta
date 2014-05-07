@@ -165,6 +165,38 @@ ModelImporter:
     4300058: polySurface788
     4300060: polySurface789
     4300062: polySurface790
+    6400000: polySurface759
+    6400002: polySurface760
+    6400004: polySurface761
+    6400006: polySurface762
+    6400008: polySurface763
+    6400010: polySurface764
+    6400012: polySurface765
+    6400014: polySurface766
+    6400016: polySurface767
+    6400018: polySurface768
+    6400020: polySurface769
+    6400022: polySurface770
+    6400024: polySurface771
+    6400026: polySurface772
+    6400028: polySurface773
+    6400030: polySurface774
+    6400032: polySurface775
+    6400034: polySurface776
+    6400036: polySurface777
+    6400038: polySurface778
+    6400040: polySurface779
+    6400042: polySurface780
+    6400044: polySurface781
+    6400046: polySurface782
+    6400048: polySurface783
+    6400050: polySurface784
+    6400052: polySurface785
+    6400054: polySurface786
+    6400056: polySurface787
+    6400058: polySurface788
+    6400060: polySurface789
+    6400062: polySurface790
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -186,10 +218,10 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     weldVertices: 1
