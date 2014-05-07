@@ -8,6 +8,9 @@ public class JournalRead : MonoBehaviour{
 	public GameObject textPrefab; // Prefab of TextMesh.
 	public CutsceneGeorge georgeCutscene; // CutsceneScript for GEORGE.
 
+	// Unlockable Door
+	private GameObject basementDoor;
+
 
 	[HideInInspector]
 	public bool valid; // is valid conversation, or use default speech. Needs to be public so I can access in ConvTrigger.
@@ -102,6 +105,13 @@ public class JournalRead : MonoBehaviour{
 			cutscene.GetComponent<CutsceneGeorge> ().Begin (journal_clip);
 			audio.mute = true;
 			cm.ActivateCharacter("George");
+
+			// Test Case Open Basement Door
+			if (jour.GetCurrentJournal() >= 0) {
+				basementDoor = GameObject.FindGameObjectWithTag("LockedDoor");
+				basementDoor.transform.Rotate (0, -85, 0);
+				Debug.Log ("Basement Unlocked");
+			}
 		} 
 
 		// MATT's journal, used as a sub until George's is in the game. (David's puzzle)
