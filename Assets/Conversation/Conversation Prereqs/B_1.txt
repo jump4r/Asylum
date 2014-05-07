@@ -1,2 +1,0 @@
-Person1 2
-Person2 1
